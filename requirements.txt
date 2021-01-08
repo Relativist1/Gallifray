@@ -1,0 +1,12 @@
+emcee
+astropy
+future
+h5py
+ipython
+matplotlib
+numpy
+ehtim
+pynfft
+requests
+scipy
+scikit-image
