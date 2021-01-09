@@ -25,6 +25,7 @@ before_install:
 install:
   - pip install --upgrade numpy
   - pip install -r requirements.txt
+  - python setup.py install
 
-#script:
+script:
 #  - cd examples/point && python examplescript_point.py
