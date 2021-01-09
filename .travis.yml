@@ -1,0 +1,34 @@
+language: python
+sudo: required
+dist: xenial
+
+python:
+  - 3.5
+  - 3.6
+  - 3.7
+  - 3.8
+  - 3.9-dev
+  - nightly
+
+matrix:
+  fast_finish: true
+  allow_failures:
+  - python: 3.9-dev
+  - python: nightly
+
+git:
+  depth: 9999
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y install libnfft3-dev
+  - sudo apt-get -y install libopenblas-base libopenblas-dev
+
+install:
+  - pip install cython  # needed before pynfft
+  - pip install --upgrade numpy
+  - pip install -r requirements.txt
+  - pip install .
+
+#script:
+#  - cd examples/point && python examplescript_point.py
