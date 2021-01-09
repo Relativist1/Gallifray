@@ -14,5 +14,6 @@ from builtins import object
 
 
 from gallifray.models import *
+from utils import *
 #from gallifray.scattering import *
 #from gallifray.lnprob import *
