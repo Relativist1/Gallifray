@@ -6,7 +6,5 @@ ipython
 matplotlib
 numpy
 ehtim
-pynfft
 requests
 scipy
-scikit-image
