@@ -1,6 +1,4 @@
-<p align="center"><img width=60% src="gallifray_logo.png"></p>
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<p align="left"><img width=50% src="gallifray_logo.png"></p>
 
 ![Python](https://img.shields.io/badge/python-v3.6+-blue.svg)
 [![Build Status](https://travis-ci.org/anfederico/Clairvoyant.svg?branch=master)](https://travis-ci.org/Relativist1/Gallifray)
@@ -14,7 +12,6 @@
 
 This version of the library is an early release, so please feel free to make an issue or submit a pull request.
 <br>
-<p align="left"><img width=95% src="im.png"></p>
 
 ## Requirements
 ### Non-Standard python packages
@@ -25,7 +22,6 @@ Gallifray also the following Python packages:
 * Astropy
 * Matplotlib
 * SciPy
-<br>
 
 ### External packages
 
