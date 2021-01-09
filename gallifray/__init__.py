@@ -13,8 +13,6 @@ from builtins import range
 from builtins import object
 
 
-from gauss import *
-from disk import *
-from crescent import *
-from xsring import *
-from xsringauss import *
+from gallifray.models import *
+#from gallifray.scattering import *
+#from gallifray.lnprob import *
