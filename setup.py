@@ -15,7 +15,9 @@ if __name__ == "__main__":
           keywords = "astronomy imaging EHT VLBI MCMC",
           url = "https://github.com/Relativist1/GALLIFRAY",
           packages = ["gallifray",
-                      "gallifray.models"],
+                      "gallifray.models",
+                      "gallifray.likelihood",
+                      "gallifray.utilities"],
           #long_description=read('README.rst'),
           install_requires=["ehtim",  # https://github.com/achael/eht-imaging.git
                             "emcee",

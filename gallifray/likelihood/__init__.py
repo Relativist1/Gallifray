@@ -1,5 +1,5 @@
 """
-.. module:: gallifray.models
+.. module:: gallifray.likelihood
     :synopsis: Geometric Modelling and Parameter Estimation framework
 
 .. moduleauthor:: Saurabh (sbhkmr1999@gmail.com)
@@ -7,9 +7,5 @@
 """
 
 from . import *
-
-from .gauss import *
-from .disk import *
-from .crescent import *
-from .xsring import *
-from .xsringauss import *
+from .ln_gaussian import *
+from .ln_vis_amp import *
