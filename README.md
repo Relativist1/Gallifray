@@ -22,7 +22,6 @@ Gallifray also the following Python packages:
 * Astropy
 * Matplotlib
 * SciPy
-<br>
 
 ### External packages
 
