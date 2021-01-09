@@ -25,7 +25,6 @@ before_install:
   - sudo apt-get -y install libopenblas-base libopenblas-dev
 
 install:
-  - pip install cython  # needed before pynfft
   - pip install --upgrade numpy
   - pip install -r requirements.txt
   - pip install .
