@@ -12,7 +12,7 @@
 
 This version of the library is an early release, so please feel free to make an issue or submit a pull request.
 <br>
-<p align="left"><img width=95% src="im.png"></p>
+<p align="left"><img width=70% src="im.png"></p>
 
 ## Requirements
 ### Non-Standard python packages
