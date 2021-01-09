@@ -7,17 +7,16 @@ def read(fname):
 if __name__ == "__main__":
     setup(name="gallifray",
 
-          version = "1.0",
+          version = "0.1",
           author = "Saurabh",
           author_email = "sbhkmr1999@gmail.com",
           description = "Geometric modelling and parameter estimation framework for Black hole images.",
           license = "GPLv3",
           keywords = "astronomy imaging EHT VLBI MCMC",
-          url = "https://github.com/relativist1/gallifray",
-          download_url = "https://github.com/achael/eht-imaging/archive/v1.2.1.tar.gz",
+          url = "https://github.com/Relativist1/GALLIFRAY",
           packages = ["gallifray",
                       "gallifray.models",
-                      "utils" ],
+                      "gallifray.utils" ],
           long_description=read('README.rst'),
           install_requires=["ehtim",  # https://github.com/achael/eht-imaging.git
                             "emcee",
@@ -26,7 +25,6 @@ if __name__ == "__main__":
                             "numpy",
                             "scipy",
                             "astropy",
-                            "corner",
-                            "ehtplot"] # git+https://github.com/liamedeiros/ehtplot.git
+                            "corner"] # git+https://github.com/liamedeiros/ehtplot.git
          )
 
