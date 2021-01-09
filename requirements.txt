@@ -1,10 +1,16 @@
 emcee
 astropy
 future
-h5py
-ipython
+h5py #for emcee 
 matplotlib
 numpy
-ehtim
 requests
 scipy
+
+git+https://github.com/pyNFFT/pyNFFT.git
+
+# ipython
+
+git+https://github.com/achael/eht-imaging.git
+
+#git+https://github.com/liamedeiros/ehtplot.git
