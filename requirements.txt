@@ -9,6 +9,4 @@ scipy
 
 # ipython
 
-git+https://github.com/achael/eht-imaging.git
-
 #git+https://github.com/liamedeiros/ehtplot.git
