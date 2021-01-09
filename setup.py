@@ -17,7 +17,7 @@ if __name__ == "__main__":
           packages = ["gallifray",
                       "gallifray.models",
                       "gallifray.utils" ],
-          long_description=read('README.rst'),
+          #long_description=read('README.rst'),
           install_requires=["ehtim",  # https://github.com/achael/eht-imaging.git
                             "emcee",
                             "future",
