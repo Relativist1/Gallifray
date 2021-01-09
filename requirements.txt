@@ -7,8 +7,6 @@ numpy
 requests
 scipy
 
-git+https://github.com/pyNFFT/pyNFFT.git
-
 # ipython
 
 git+https://github.com/achael/eht-imaging.git
