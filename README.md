@@ -29,7 +29,7 @@ Gallifray also the following Python packages:
 
 [emcee](https://github.com/dfm/emcee/): the python ensemble sampling toolkit for affine-invariant MCMC
 
-[corner](https://github.com/dfm/corner.py): corner plots
+[seaborn](): fancy plotting
 
 ## Basic installation
 
