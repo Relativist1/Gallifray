@@ -17,10 +17,12 @@ if __name__ == "__main__":
           packages = ["gallifray",
                       "gallifray.models",
                       "gallifray.likelihood",
+                      "gallifray.tardis",
                       "gallifray.utilities"],
           #long_description=read('README.rst'),
           install_requires=["ehtim",  # https://github.com/achael/eht-imaging.git
                             "emcee",
+                            "seaborn",
                             "future",
                             "matplotlib",
                             "numpy",

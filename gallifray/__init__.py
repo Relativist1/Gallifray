@@ -24,10 +24,9 @@ from gallifray.likelihood import *
 from gallifray.likelihood.ln_gaussian import *
 from gallifray.likelihood.ln_vis_amp import *
 
+from gallifray.tardis import *
+from gallifray.tardis import *
 
 from gallifray.utilities import *
 from gallifray.utilities.random import *
 from gallifray.utilities.utils import *
-
-
-#from gallifray.scattering import *
