@@ -29,7 +29,8 @@ Gallifray also the following Python packages:
 
 [emcee](https://github.com/dfm/emcee/): the python ensemble sampling toolkit for affine-invariant MCMC
 
-[seaborn](): fancy plotting
+[seaborn](https://github.com/mwaskom/seaborn): for fancy plotting
+
 
 ## Basic installation
 
