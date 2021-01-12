@@ -13,7 +13,7 @@ if __name__ == "__main__":
           description = "Geometric modelling and parameter estimation framework for Black hole images.",
           license = "GPLv3",
           keywords = "astronomy imaging EHT VLBI MCMC",
-          url = "https://github.com/Relativist1/GALLIFRAY",
+          url = "https://github.com/Relativist1/Gallifray",
           packages = ["gallifray",
                       "gallifray.models",
                       "gallifray.likelihood",
