@@ -12,8 +12,9 @@ plt.rcParams['font.size'] = 18
 
 
 def Tardis(samples,
-                  labels,
-                  savefig,
+                  labels=None,
+                  truths=None,
+                  savefig=None,
                   contour_levels=5,
                   shade=True,
                   diag_shade=True,
@@ -21,17 +22,19 @@ def Tardis(samples,
                   diag_shade_color = 'Darkblue',
                   truth1d=None,
                   truth2d=None,
-                  truth_labels=False,
+                  truth_titles=False,
                   color_truth='k',
                   lw_truth=1.5,
+                  lw_1d=2,
                   fontsize=20,
                   pad_inches=0.1,
                   dpi=500,
                   **kwargs):
-    """Tardis: Triangle-corner distribution plotting for MCMC sampling analysis.
+    """Tardis: Triangle-corner distribution plotting for MCMC sampling analysis.C
     """
     
     dim = len(samples.T)
+    whspace = 0.15
     plotdim = 3*(dim + (dim - 1.0)*whspace)
     size = 1.5 + plotdim + 0.6
     
@@ -51,10 +54,12 @@ def Tardis(samples,
                            direction='in', labelsize='large')
             if (j==0) :
                 ax.tick_params(labelleft=True)
-                ax.set_ylabel(labels[i],fontsize=fontsize)
+                if labels is not None:
+                    ax.set_ylabel(labels[i],fontsize=fontsize)
             if (i==dim-1) :
                 ax.tick_params(labelbottom=True)
-                ax.set_xlabel(labels[j],fontsize=fontsize)
+                if labels is not None:
+                    ax.set_xlabel(labels[j],fontsize=fontsize)
             if (j==dim-1) :
                 ax.tick_params(labelright=True)
             if truth2d is not None:
@@ -71,20 +76,24 @@ def Tardis(samples,
         ax.tick_params(labelleft=False, labelright=False, labelbottom=False,
                        labeltop=False, bottom=True, top=True, left=True,
                        right=True, direction='in', length=4, labelsize='large')
+        
+        if i==0:
+            if labels is not None:
+                ax.set_xlabel(labels[-1],fontsize=fontsize)
+                ax.set_ylabel(labels[i],fontsize=fontsize)
         if i==dim-1:
             ax.tick_params(labelbottom=True)
-            ax.set_xlabel(labels[-1],fontsize=fontsize)
-        if i==0:
-            ax.set_ylabel(labels[i],fontsize=fontsize)
+            if labels is not None:
+                ax.set_xlabel(labels[-1],fontsize=fontsize)
+        
         if truth1d is not None:
             ax.axvline(truths[i],color=color_truth,lw=lw_truth)
-        if truth_labels==True:
-        ax.set_title(labels[i],fontsize=fontsize)
         
-        N = sns.kdeplot(x=samples[:,i],ax=ax,shade=diag_shade, color=diag_shade_color, **kwargs)
+        N = sns.kdeplot(x=samples[:,i],ax=ax,shade=diag_shade, color=diag_shade_color, lw=lw_1d, **kwargs)
             
     if savefig is not None:
         fname = savefig
         plt.savefig(fname, bbox_inches='tight', pad_inches = pad_inches,dpi=dpi)
         
     return M, N
+    
