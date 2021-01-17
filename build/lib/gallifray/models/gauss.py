@@ -90,7 +90,6 @@ class sym_gauss(object):
         exp2 = np.exp(-4*np.pi**2*self.sigma**4*(c1*u**2-b1*u*v+a1*v**2))
         visibility = exp1*exp2
         uv = np.sqrt(u**2 + v**2)
-        bl = uv
         
         if interp!=None and interp=='spline':
             def cubic_spline_interp(x,y,new_x,a=-0.5) :
@@ -247,7 +246,6 @@ class asym_gauss(object):
         exp2 = np.exp(-4*np.pi**2*self.s_maj**2*self.s_min**2*(c1*u**2-b1*u*v+a1*v**2))
         visibility = exp1*exp2
         uv = np.sqrt(u**2 + v**2)
-        bl = uv
         
         if interp!=None and interp=='spline':
             def cubic_spline_interp(x,y,new_x,a=-0.5) :

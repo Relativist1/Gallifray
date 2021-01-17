@@ -4,8 +4,8 @@ from __future__ import print_function
 from builtins import object
 import numpy as np
 from scipy.signal import fftconvolve
-from scipy.interpolate import interp1d
 from scipy.special import jv
+
 """
 For Scattering Kernel
 beam_params = [1.309*1e-6, 0.64*1e-6, 78*np.pi/180]
@@ -13,8 +13,9 @@ Reference :- Bower G.C. et. al., 2006, ApJ, 648, L127
 """
 
 
-class disk(object):
-    """Class for Disk Model.
+class crescent(object):
+    """Class for Crescent Model.
+    Reference: Kamruddin, A. B., & Dexter, J. 2013, MNRAS, 434, 765
     
     Attributes:
         dim (int) : Dimenion along one axis (Square image)
@@ -24,46 +25,63 @@ class disk(object):
         y_off (float) : offset in y
     """
 
-    def __init__(self,I0, R, fov,dim=512,x_off=0, y_off=0):
-        """Creates a Disk Model.
+    def __init__(self,I0, R, psi, tau, phi,fov,dim=512 ,x_off=0, y_off=0):
+        """Creates a Crescent Model.
         
         Args:
             I0 (float) : Total flux/intensity (Jy/pixel)
-            R (float) : Outer radius (in uas)
+            R (float) : Overall size or outer radius (in uas)
+            psi (float) : Relative thickness (0,1)
+            tau (float) : Degree of symmetry (0,1)
+            phi (float) : orientation
             fov (int) : Field of view (in uas)
             dim (int) : Dimensions of the image along an axis (square image)
             x_off (float) : x offset from the center
             y_off (float) : y offset from the center
+            
         Return:
-            Disk model with parameters
+            Crescent model with parameters
         """
+        
+        if not fov:
+            fov = 2*R + 10
         
         self.I0 = I0
         self.R = R
+        self.psi = psi
+        self.tau = tau
+        self.phi = phi
         self.fov = fov
         self.dim = dim
+        
         self.x_off = x_off
         self.y_off = y_off
-        
         self.X = np.linspace(-self.fov/2, self.fov/2,self.dim)
         self.Y = np.linspace(-self.fov/2, self.fov/2,self.dim)
-        self.pixel = self.X[1] - self.X[0]
+        self.psize = self.X[1] - self.X[0]
+        
+        self.R_p = R
+        self.R_n = (self.R_p*(1-self.psi))
+        self.a = (1-self.tau)*(self.R_p-self.R_n)*np.cos(self.phi)
+        self.b = (1-self.tau)*(self.R_p-self.R_n)*np.sin(self.phi)
 
     def sky_map(self):
         """Generates the intensity map of the model
 
-        Returns:
-            Intensity map of the model
+       Returns:
+           Intensity map of the model
         """
-        disk = np.zeros((self.dim, self.dim))
+        cres_arr = np.zeros((self.dim,self.dim))
         for j, nj in enumerate(self.Y):
-            for i, ni in enumerate(self.Y):
-                R1 = nj**2 + ni**2
-                if R1 < self.R**2:
-                    disk[i-self.x_off][j-self.y_off] = self.I0
-        return disk
+            for i, ni in enumerate(self.X):
+                R1 = (nj - self.b)**2 + (ni - self.a)**2
+                R2 = ni**2 + nj**2
+                if R1 > self.R_n**2 and R2 < self.R_p**2:
+                    cres_arr[i-self.x_off][j-self.y_off] = 1.0
+        crescarr = cres_arr * self.I0/np.sum(cres_arr) #Normalise
+        return crescarr
     
-    def vis_data(self, fov, uv='default',A=-0.5,interp=None,points=512):
+    def vis_data(self, fov, uv='default',A=None,interp=False,points=None):
         """"Generate complex visibilites
             
         Return:
@@ -71,18 +89,29 @@ class disk(object):
             
         """
         if uv == 'default':
-            u = np.linspace(.1, self.fov, self.dim)
-            v = np.linspace(.1, self.fov, self.dim)
+            u1 = np.linspace(.1, self.fov, self.dim)
+            v1 = np.linspace(.1, self.fov, self.dim)
         elif len(uv)==2:
-            u = np.asarray(uv[0])
-            v = np.asarray(uv[1])
+            u1 = np.asarray(uv[0])
+            v1 = np.asarray(uv[1])
             
-        rho = np.sqrt(u**2 + v**2)
-        visibility = self.R*jv(1,(2*np.pi*rho)*self.R)/rho
+        u = u1*np.cos(self.phi) + v1*np.sin(self.phi)
+        v = -u1*np.sin(self.phi) + v1*np.cos(self.phi)
+        V0 = np.pi*(self.R_p**2 - self.R_n**2)*self.I0
+        visibility = np.asarray(self.R_p*jv(1,(2*np.pi*np.sqrt(u**2 + v**2))*self.R_p) - \
+        np.exp(-(2j*np.pi*(self.a*u+self.b*v)))*self.R_n*jv(1,(2*np.pi*np.sqrt(u**2 + v**2))*self.R_p))
+       
         uv = np.sqrt(u**2 + v**2)
-        bl = uv
         
-        if interp!=None and interp=='spline':
+        if interp:
+            if not points:
+                points = len(uv)
+            bl = np.linspace(min(uv), max(uv), points)
+            interp_vis = interp1d(np.asarray(uv), np.abs(visibility), kind=interp)
+            visibility = interp_vis(bl)
+            
+        if interp=='spline':
+            
             def cubic_spline_interp(x,y,new_x,a=-0.5) :
                 delta = x[1]-x[0]
                 F = np.zeros(len(new_x))
@@ -95,22 +124,10 @@ class disk(object):
                     F[j] = np.sum(weight*y)
                 return F
             
-            bl_new = np.linspace(min(uv), max(uv), points)
-            vis3 = cubic_spline_interp(uv,np.abs(visibility),bl_new,a=A)
-            vis_n = vis3/max(vis3)
-
-        if interp!=None and interp!='spline':
-            if not points:
-                points = len(uv)
-            bl_new = np.linspace(min(uv), max(uv), points)
-            interp_vis = interp1d(np.asarray(uv), np.abs(visibility), kind=interp)
-            vis3 = interp_vis(bl_new)
-            vis_n = vis3/max(vis3)
-
-        if interp==None:
-            bl_new = uv
-            vis_n = visibility/max(visibility)
-
+            bl = np.linspace(min(uv), max(uv), points)
+            vis_n = cubic_spline_interp(bl,np.abs(visibility),bl_new,a=A)
+            
+        vis_n = visibility/max(visibility)
 
         vis_data = {'info': 'Complex Visibilites',
                   'vis' : vis_n,
@@ -119,7 +136,7 @@ class disk(object):
                   'amp': np.abs(vis_n),
                   'u': u,
                   'v': v,
-                  'bl': bl_new
+                  'bl': bl
                   }
         return vis_data
     
@@ -136,7 +153,7 @@ class disk(object):
         """
         if len(beam_params) != 3:
             raise Exception("beam_params must contain 3 values")
-        
+            
         image = self.sky_map()
         x,y = np.meshgrid(self.X,self.Y)
         
@@ -148,9 +165,8 @@ class disk(object):
         x0 = np.cos(theta)
         y0 = np.sin(theta)
         
-        Gauss = self.I0*np.exp(-(y * x0 + x * y0)**2/(2*(beam_size * s_maj)**2)- \
-                          (x * x0 - y * y0)**2/(2.*(beam_size * s_min)**2))
+        Gauss = self.I0*np.exp(-(y*x0 + x*y0)**2/(2*(beam_size*s_maj)**2)- \
+                          (x*x0 - y*y0)**2/(2.*(beam_size*s_min)**2))
 
         imarr_blur = fftconvolve(Gauss, image, mode='same')
         return imarr_blur
-

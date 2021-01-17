@@ -101,8 +101,8 @@ class crescent(object):
         visibility = np.asarray(self.R_p*jv(1,(2*np.pi*np.sqrt(u**2 + v**2))*self.R_p) - \
         np.exp(-(2j*np.pi*(self.a*u+self.b*v)))*self.R_n*jv(1,(2*np.pi*np.sqrt(u**2 + v**2))*self.R_p))
        
-        visibility = vis1 -  vis2
         uv = np.sqrt(u**2 + v**2)
+        bl = uv
         
         if interp:
             if not points:

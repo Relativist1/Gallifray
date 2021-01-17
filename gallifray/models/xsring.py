@@ -110,7 +110,8 @@ class xsring(object):
         vis2 = (h/2)*(circ2 + (1j/2*np.pi)*dcirc2*u)
         visibility = vis1 -  vis2
         uv = np.sqrt(u**2 + v**2)
-            
+        bl = uv
+        
         if interp!=None and interp=='spline':
             def cubic_spline_interp(x,y,new_x,a=-0.5) :
                 delta = x[1]-x[0]

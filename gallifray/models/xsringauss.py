@@ -134,6 +134,7 @@ class xsringauss(object):
         v_g = np.exp(-2*(np.pi*k)**2*rho2 - 1j*2*np.pi*u*(self.R_n-self.d))
         visibility = self.I0*((1-self.gq)*v_r + self.gq*v_g)
         uv = np.sqrt(u**2 + v**2)
+        bl = uv
         
         if interp!=None and interp=='spline':
             def cubic_spline_interp(x,y,new_x,a=-0.5) :

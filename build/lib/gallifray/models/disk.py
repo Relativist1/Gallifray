@@ -80,7 +80,6 @@ class disk(object):
         rho = np.sqrt(u**2 + v**2)
         visibility = self.R*jv(1,(2*np.pi*rho)*self.R)/rho
         uv = np.sqrt(u**2 + v**2)
-        bl = uv
         
         if interp!=None and interp=='spline':
             def cubic_spline_interp(x,y,new_x,a=-0.5) :
