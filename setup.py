@@ -17,6 +17,8 @@ if __name__ == "__main__":
           packages = ["gallifray",
                       "gallifray.models",
                       "gallifray.likelihood",
+                      "gallifray.priors",
+                      "gallifray.mcmc",
                       "gallifray.tardis",
                       "gallifray.utilities"],
           #long_description=read('README.rst'),

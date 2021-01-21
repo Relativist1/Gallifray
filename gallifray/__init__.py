@@ -13,20 +13,26 @@ from builtins import range
 from builtins import object
 
 
-from gallifray.models import *
+#from gallifray.models import *
 from gallifray.models.gauss import *
 from gallifray.models.disk import *
 from gallifray.models.crescent import *
 from gallifray.models.xsring import *
 from gallifray.models.xsringauss import *
 
-from gallifray.likelihood import *
+#from gallifray.likelihood import *
 from gallifray.likelihood.ln_gaussian import *
 from gallifray.likelihood.ln_vis_amp import *
 
-from gallifray.tardis import *
-from gallifray.tardis import *
+from gallifray.tardis.tardis import *
 
-from gallifray.utilities import *
-from gallifray.utilities.random import *
+#from gallifray.utilities import *
 from gallifray.utilities.utils import *
+
+from gallifray.likelihood.likelihood import *
+
+from gallifray.priors.priors import *
+
+from gallifray.mcmc import *
+from gallifray.mcmc.mcmc import *
+from gallifray.mcmc.mcmc_utils import *

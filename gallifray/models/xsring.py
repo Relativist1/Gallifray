@@ -90,12 +90,13 @@ class xsring(object):
         if uv == 'default':
             u1 = np.linspace(.1, self.fov, self.dim)
             v1 = np.linspace(.1, self.fov, self.dim)
-        elif len(uv)==2:
-            u1 = np.asarray(uv[0])
-            v1 = np.asarray(uv[1])
+            u = u1*np.cos(self.phi) + v1*np.sin(self.phi)
+            v = -u1*np.sin(self.phi) + v1*np.cos(self.phi)
             
-        u = u1*np.cos(self.phi) + v1*np.sin(self.phi)
-        v = -u1*np.sin(self.phi) + v1*np.cos(self.phi)
+        elif len(uv)==2:
+            u = np.asarray(uv[0])
+            v = np.asarray(uv[1])
+
         rho = np.sqrt(u**2 + v**2)
         h = 2/(np.pi*(self.R_p**2 - self.R_n**2))
         circ1 = self.R_p*jv(1,(2*np.pi*rho)*self.R_p)
@@ -127,7 +128,7 @@ class xsring(object):
             
             bl_new = np.linspace(min(uv), max(uv), points)
             vis3 = cubic_spline_interp(uv,np.abs(visibility),bl_new,a=A)
-            vis_n = vis3/max(vis3)
+            vis_n = vis3
 
         if interp!=None and interp!='spline':
             if not points:
@@ -135,11 +136,11 @@ class xsring(object):
             bl_new = np.linspace(min(uv), max(uv), points)
             interp_vis = interp1d(np.asarray(uv), np.abs(visibility), kind=interp)
             vis3 = interp_vis(bl_new)
-            vis_n = vis3/max(vis3)
+            vis_n = vis3
 
         if interp==None:
             bl_new = uv
-            vis_n = visibility/max(visibility)
+            vis_n = visibility
 
         vis_data = {'info': 'Complex Visibilites',
                   'vis' : vis_n,

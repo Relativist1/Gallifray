@@ -91,12 +91,13 @@ class crescent(object):
         if uv == 'default':
             u1 = np.linspace(.1, self.fov, self.dim)
             v1 = np.linspace(.1, self.fov, self.dim)
-        elif len(uv)==2:
-            u1 = np.asarray(uv[0])
-            v1 = np.asarray(uv[1])
+            u = u1*np.cos(self.phi) + v1*np.sin(self.phi)
+            v = -u1*np.sin(self.phi) + v1*np.cos(self.phi)
             
-        u = u1*np.cos(self.phi) + v1*np.sin(self.phi)
-        v = -u1*np.sin(self.phi) + v1*np.cos(self.phi)
+        elif len(uv)==2:
+            u = np.asarray(uv[0])
+            v = np.asarray(uv[1])
+            
         V0 = np.pi*(self.R_p**2 - self.R_n**2)*self.I0
         visibility = np.asarray(self.R_p*jv(1,(2*np.pi*np.sqrt(u**2 + v**2))*self.R_p) - \
         np.exp(-(2j*np.pi*(self.a*u+self.b*v)))*self.R_n*jv(1,(2*np.pi*np.sqrt(u**2 + v**2))*self.R_p))
@@ -104,15 +105,7 @@ class crescent(object):
         uv = np.sqrt(u**2 + v**2)
         bl = uv
         
-        if interp:
-            if not points:
-                points = len(uv)
-            bl = np.linspace(min(uv), max(uv), points)
-            interp_vis = interp1d(np.asarray(uv), np.abs(visibility), kind=interp)
-            visibility = interp_vis(bl)
-            
-        if interp=='spline':
-            
+        if interp!=None and interp=='spline':
             def cubic_spline_interp(x,y,new_x,a=-0.5) :
                 delta = x[1]-x[0]
                 F = np.zeros(len(new_x))
@@ -125,10 +118,21 @@ class crescent(object):
                     F[j] = np.sum(weight*y)
                 return F
             
-            bl = np.linspace(min(uv), max(uv), points)
-            vis_n = cubic_spline_interp(bl,np.abs(visibility),bl_new,a=A)
-            
-        vis_n = visibility/max(visibility)
+            bl_new = np.linspace(min(uv), max(uv), points)
+            vis3 = cubic_spline_interp(uv,np.abs(visibility),bl_new,a=A)
+            vis_n = vis3
+
+        if interp!=None and interp!='spline':
+            if not points:
+                points = len(uv)
+            bl_new = np.linspace(min(uv), max(uv), points)
+            interp_vis = interp1d(np.asarray(uv), np.abs(visibility), kind=interp)
+            vis3 = interp_vis(bl_new)
+            vis_n = vis3
+
+        if interp==None:
+            bl_new = uv
+            vis_n = visibility
 
         vis_data = {'info': 'Complex Visibilites',
                   'vis' : vis_n,

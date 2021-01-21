@@ -9,3 +9,4 @@
 from . import *
 from .ln_gaussian import *
 from .ln_vis_amp import *
+from .likelihood import *

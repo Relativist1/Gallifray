@@ -71,8 +71,11 @@ class disk(object):
             
         """
         if uv == 'default':
-            u = np.linspace(.1, self.fov, self.dim)
-            v = np.linspace(.1, self.fov, self.dim)
+            u1 = np.linspace(.1, self.fov, self.dim)
+            v1 = np.linspace(.1, self.fov, self.dim)
+            u = u1*np.cos(self.phi) + v1*np.sin(self.phi)
+            v = -u1*np.sin(self.phi) + v1*np.cos(self.phi)
+            
         elif len(uv)==2:
             u = np.asarray(uv[0])
             v = np.asarray(uv[1])
@@ -97,7 +100,7 @@ class disk(object):
             
             bl_new = np.linspace(min(uv), max(uv), points)
             vis3 = cubic_spline_interp(uv,np.abs(visibility),bl_new,a=A)
-            vis_n = vis3/max(vis3)
+            vis_n = vis3
 
         if interp!=None and interp!='spline':
             if not points:
@@ -105,11 +108,11 @@ class disk(object):
             bl_new = np.linspace(min(uv), max(uv), points)
             interp_vis = interp1d(np.asarray(uv), np.abs(visibility), kind=interp)
             vis3 = interp_vis(bl_new)
-            vis_n = vis3/max(vis3)
+            vis_n = vis3
 
         if interp==None:
             bl_new = uv
-            vis_n = visibility/max(visibility)
+            vis_n = visibility
 
 
         vis_data = {'info': 'Complex Visibilites',
