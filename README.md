@@ -8,8 +8,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ## About
 
-**Gallifray** is a geometric modelling and parameter estimation framework for Black hole images for EHT including VLBI developed for using Event Horizon Telescope results or in general for radio interferometry. The framework utilizes the usage emcee for bayesian analysis and MCMC sampling and eht-imaging library for radio interferometric syntheic data manipulation.
->>>>>>> c87ca2768af770ad7a12c5d85154c9b3afd34a99
+**Gallifray** is a geometric modelling and parameter estimation framework for Black hole images from EHT including VLBI. Gallifray has been developed for the purpose of utilizing the Event Horizon Telescope results to perform analysis. Its uses can be extended to general radio interferometry. The framework utilizes emcee library for bayesian analysis and MCMC sampling, along with eht-imaging library for radio interferometric synthetic data manipulation.
 
 This version of the library is an early release, so please feel free to make an issue or submit a pull request.
 <br>
