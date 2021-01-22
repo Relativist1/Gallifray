@@ -25,7 +25,7 @@ n_samples =  100
 model_type = 'xsring'
 likelihood = 'default'
 #---------------------------------------------------------------------------------------
-path = '../datasets/SR1_M87_2017_101_hi_hops_netcal_StokesI.uvfits'
+path = '../datasets/sample.uvfits'
 obs_m = eh.obsdata.load_uvfits(path)
 obs_m.add_scans()
 obs_m = obs_m.avg_coherent(0.,scan_avg=True)

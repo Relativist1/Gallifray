@@ -42,7 +42,6 @@ $ cd Gallifray
 $ pip install -r requirements.txt
 $ python3 setup.py install
 ```
-
 ## Documentation
 Coming soon....
 
@@ -58,12 +57,23 @@ Included Models
 | xsring     | I0, R_p, R_n, ecn, f, phi             |
 | xsringauss | I0, R_p, R_n, ecn, f,gax, aq, gq, phi |
 
-## Contributing
 
+## Basic usage
+To run a sample script with MCMC sampling on observational  or simulated dataset 
+```sh
+$ python example_scripts/example_script_run.py
+```
+
+## Features coming soon
+- General Relativistic Raytracing for generating static and spherically symmetric Black hole images surrounded by accretion disk.
+- New Models with parameterizations
+- User input models
+- Inclusion of more sample datasets
 
 ## Features to be included
 - Reading and writing uvfits file independently
-- Support general relativistic ray-tracing for physically motivated Black hole images.
+- Support for general relativistic ray-tracing for physically motivated Black hole images.
+- Space-VLBI simulations
 - Addition of more models
 
 ## Contact
