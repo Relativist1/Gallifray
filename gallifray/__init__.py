@@ -13,7 +13,7 @@ from builtins import range
 from builtins import object
 
 
-#from gallifray.models import *
+from gallifray.models import *
 from gallifray.models.gauss import *
 from gallifray.models.disk import *
 from gallifray.models.crescent import *
@@ -22,7 +22,7 @@ from gallifray.models.xsringauss import
 
 from gallifray.tardis.tardis import *
 
-#from gallifray.utilities import *
+from gallifray.utilities import *
 from gallifray.utilities.utils import *
 
 from gallifray.likelihood import *

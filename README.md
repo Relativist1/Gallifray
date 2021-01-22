@@ -47,7 +47,16 @@ $ python3 setup.py install
 Coming soon....
 
 ## Models
+Included Models
 
+| Model      | Parameters                            |
+|------------|---------------------------------------|
+| sym_gauss  | I0, A                                 |
+| asym_gauss | I0, A, S, phi                         |
+| disk       | I0, R                                 |
+| crescent   | I0, R_p, psi, tau, phi                |
+| xsring     | I0, R_p, R_n, ecn, f, phi             |
+| xsringauss | I0, R_p, R_n, ecn, f,gax, aq, gq, phi |
 
 ## Contributing
 
