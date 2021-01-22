@@ -1,4 +1,4 @@
-<p align="left"><img width=50% src="gallifray_logo.png"></p>
+<p align="left"><img width=50% src="images/gallifray_logo.png"></p>
 
 ![Python](https://img.shields.io/badge/python-v3.6+-blue.svg)
 [![Build Status](https://travis-ci.org/anfederico/Clairvoyant.svg?branch=master)](https://travis-ci.org/Relativist1/Gallifray)
@@ -63,6 +63,31 @@ To run a sample script with MCMC sampling on observational  or simulated dataset
 ```sh
 $ python example_scripts/example_script_run.py
 ```
+## Example usage of Tardis module 
+
+```python
+# samples are either imported or directly used after mcmc sampler
+import gallifray as gr
+
+m_true = -0.9594
+b_true = 4.294
+f_true = 0.534
+
+truths = [m_true, b_true, f_true]
+labels = [r"$m_{true}$", r"$b_{true}$",r"$f_{true}$"]
+
+# if Emcee ensemble.sampler is used
+samples = sampler.get_chain(flat=True)
+
+gr.Tardis(samples, truths=truths, labels =labels, 
+       savefig='new1.png', diag_shade_color='red',
+       shade=True, truth1d=True, truth2d = False)
+```
+<p align="left"><img width=100% src="images/web.png"></p>
+
+## Example plotting scheme using Tardis module 
+
+<p align="left"><img width=80% src="images/tardis_example.png"></p>
 
 ## Features coming soon
 - General Relativistic Raytracing for generating static and spherically symmetric Black hole images surrounded by accretion disk.
