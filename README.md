@@ -83,7 +83,7 @@ gr.Tardis(samples, truths=truths, labels =labels,
        savefig='new1.png', diag_shade_color='red',
        shade=True, truth1d=True, truth2d = False)
 ```
-<p align="left"><img width=100% src="images/web.png"></p>
+<p align="left"><img width=70% src="images/web.png"></p>
 
 ## Example plotting scheme using Tardis module 
 
