@@ -5,7 +5,7 @@
 <!--![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)-->
 [![GitHub Issues](https://img.shields.io/github/issues/Relativist1/Gallifray?color=yellow)](https://github.com/Relativist1/Gallifray/issues)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
-[![License](https://img.shields.io/github/license/Relativist1/Gallifray?color=blue)](https://github.com/Relativist1/Gallifray/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/Relativist1/Gallifray?color=blue)](https://github.com/Relativist1/Gallifray/blob/0.0.1/LICENSE)
 ## About
 
 **Gallifray** is a geometric modelling and parameter estimation framework for Black hole images including VLBI developed for using Event Horizon Telescope results or in general for radio interferometry. The framework utilizes the usage emcee for bayesian analysis and MCMC sampling and eht-imaging library for radio interferometric syntheic data manipulation.
