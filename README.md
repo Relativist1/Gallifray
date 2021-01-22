@@ -34,7 +34,7 @@ Gallifray also the following Python packages:
 
 ## Basic installation
 
-The the most recent and stable version can be installed manually, by cloning the repository and installing using pip:
+The most recent and stable version can be installed manually, by cloning the repository and installing using pip:
 
 ```sh
 $ git clone https://github.com/Relativist1/Gallifray.git
@@ -59,7 +59,7 @@ Included Models
 
 
 ## Basic usage
-To run a sample script with MCMC sampling on observational  or simulated dataset 
+To run a sample script with MCMC sampling for observational or simulated dataset 
 ```sh
 $ python example_scripts/example_script_run.py
 ```
