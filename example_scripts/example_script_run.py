@@ -19,13 +19,13 @@ f_true = 0.3
 phi_true = np.pi/2
 fov = (Rp_true*2) + 20
 
-n_walkers = 32
-n_samples =  100
+n_walkers = 1000
+n_samples =  5000
 
 model_type = 'xsring'
 likelihood = 'default'
 #---------------------------------------------------------------------------------------
-path = '../datasets/sample.uvfits'
+path = '/Users/geodesix/Desktop/Non-Kerr/2019-D01-01-master/uvfits/SR1_M87_2017_101_hi_hops_netcal_StokesI.uvfits'
 obs_m = eh.obsdata.load_uvfits(path)
 obs_m.add_scans()
 obs_m = obs_m.avg_coherent(0.,scan_avg=True)
@@ -74,10 +74,12 @@ for i in range(ndim):
     ax.set_ylabel(labels[i])
 
 axes[-1].set_xlabel("step number");
-fig.savefig('gr_test1.png')
+fig.savefig('test1.png')
 final = sampler.get_chain(flat=True)
 
-fig = corner.corner(final, labels=labels, truths=initial,show_titles=True)
-fig.savefig('cr_gr_test1.png')
+#fig = corner.corner(final, labels=labels, truths=initial,show_titles=True)
+#plt.show()
+fig.savefig('cr_test1.png')
 
-#gr.Tardis(final, labels=labels, truths=initial, savefig='cr_grtest1.png', diag_shade_color='Red')
+gr.Tardis(final, labels=labels, truths=initial, savefig='cr_grtest1.png', diag_shade_color='Red')
+plt.show()
