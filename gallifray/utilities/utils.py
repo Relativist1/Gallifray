@@ -41,7 +41,7 @@ except ImportError:
     print("ehtim not installed!")
 
 
-def save_fits(im, fname,psize):
+def save_fits(im, fname, psize):
     """Save image data to a fits file.
 
        Args:
