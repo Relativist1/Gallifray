@@ -21,7 +21,7 @@ if __name__ == "__main__":
                       "gallifray.mcmc",
                       "gallifray.tardis",
                       "gallifray.utilities"],
-          #long_description=read('README.rst'),
+          long_description=read('README.md'),
           install_requires=["ehtim",  # https://github.com/achael/eht-imaging.git
                             "emcee",
                             "seaborn",
@@ -30,6 +30,6 @@ if __name__ == "__main__":
                             "numpy",
                             "scipy",
                             "astropy",
-                            "corner"] # git+https://github.com/liamedeiros/ehtplot.git
+                            "corner"]
          )
 

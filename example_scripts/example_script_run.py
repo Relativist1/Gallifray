@@ -25,7 +25,7 @@ n_samples =  5000
 model_type = 'xsring'
 likelihood = 'default'
 #---------------------------------------------------------------------------------------
-path = '/Users/geodesix/Desktop/Non-Kerr/2019-D01-01-master/uvfits/SR1_M87_2017_101_hi_hops_netcal_StokesI.uvfits'
+path = '../datasets/sample.uvfits'
 obs_m = eh.obsdata.load_uvfits(path)
 obs_m.add_scans()
 obs_m = obs_m.avg_coherent(0.,scan_avg=True)
@@ -40,7 +40,6 @@ UV = [u_eh, v_eh]
 initial = [I0_true, Rp_true, Rn_true, ecn_true, f_true, phi_true]
 
 #---------------------------------------------------------------------------------------
-
 def ln_prob(param, uv, obs_amp, obs_sigma, model_type, model_fov, likelihood, prior_type):
     f = gr.mcmc_utils.ln_probability(param=param,
                                     uv=UV,
@@ -52,7 +51,6 @@ def ln_prob(param, uv, obs_amp, obs_sigma, model_type, model_fov, likelihood, pr
                                     prior_type='uniform',
                                     )
     return f
-
 #---------------------------------------------------------------------------------------
 
 prepare_mcmc = gr.mcmc(initial, likelihood=ln_prob, model_type=model_type, uv=UV,
@@ -61,6 +59,7 @@ prepare_mcmc = gr.mcmc(initial, likelihood=ln_prob, model_type=model_type, uv=UV
                       prior_type='uniform', likelihood_type='gaussian')
           
 sampler = prepare_mcmc.run_sampler()
+
 samples = sampler.get_chain()
 
 ndim = len(initial)
