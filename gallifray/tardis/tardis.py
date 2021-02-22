@@ -33,22 +33,22 @@ def Tardis(samples,
               truths=None,
               savefig=None,
               contour_levels=[0.6827,0.9,1],
+              quantiles=False,
+              titles=True,
               shade=True,
               diag_shade=True,
               shade_color='Darkblue',
               diag_shade_color = 'Darkblue',
               truth1d=False,
               truth2d=False,
-              truth_titles=False,
               color_truth='k',
+              color_q = 'red',
               lw_truth=1.5,
               lw_1d=2,
               fontsize=20,
               pad_inches=0.1,
               dpi=500,
-              color_q = 'k',
-              quantiles=False,
-              titles=True,
+              q_percentile = [10, 50, 94],
               **kwargs):
     """Tardis: Triangle-corner distribution plotting for MCMC sampling analysis.C
     """
@@ -110,9 +110,10 @@ def Tardis(samples,
             ax.axvline(truths[i],color=color_truth,lw=lw_truth)
         
         if quantiles is not False:
-            per = np.percentile(samples[:,i], [16, 50, 84])
+            per = np.percentile(samples[:,i], q_percentile)
             Diff = np.diff(per)
             qv = [per[1], Diff[0], Diff[1]]
+            qv_line = [qv[0], qv[0]-qv[1], qv[0]+qv[2]]
             if labels is not None:
                 txt = r"{3} = ${{{0:.3f}}}_{{-{1:.3f}}}^{{+{2:.3f}}}$"
                 txt = txt.format(qv[0], qv[1], qv[2], labels[i])
@@ -122,7 +123,7 @@ def Tardis(samples,
             if titles is True:
                 ax.set_title(txt)
             for j in range(dim):
-                ax.axvline(qv[j], ls="dashed", color=color_q)
+                ax.axvline(qv_line[j], ls="dashed", color=color_q)
         
         N = sns.kdeplot(x=samples[:,i],ax=ax,shade=diag_shade, color=diag_shade_color, lw=lw_1d, **kwargs)
         
