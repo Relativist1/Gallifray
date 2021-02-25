@@ -33,7 +33,10 @@ def ln_probability(param, uv, obs_amp, obs_sigma, model_type, model_fov, likelih
     """
     def lkh(param, uv, obs_amp, obs_sigma, model_type, model_fov, likelihood='default'):
         lk = gr.likelihood(param, uv, obs_amp, obs_sigma, model_type, model_fov)
-        lkhood = lk.ln_gaussian()
+        if likelihood=='default' or likelihood=='gaussian':
+            lkhood = lk.ln_gaussian()
+        if likelihood=='rice' or likelihood=='ln_vis_amp':
+            lkhood = lk.ln_vis_amp()
         return lkhood
     
     lnp = priori_transform(param, model_type, prior_type)

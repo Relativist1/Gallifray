@@ -58,7 +58,6 @@ class mcmc(object):
         self.prior_type = prior_type
         self.model_fov = model_fov
 
-
     def run_sampler(self, n_threads="1",mult_proc=False, progress=True, moves=None, args=None, kwargs=None, backend=None, vectorize=False, blobs_dtype=None, a=None, postargs=None, threads=None, **kkwargs):
         """An ensemble MCMC sample and samples iterator
         

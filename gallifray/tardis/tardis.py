@@ -122,7 +122,7 @@ def Tardis(samples,
                 txt = txt.format(qv[0], qv[1], qv[2])
             if titles is True:
                 ax.set_title(txt)
-            for j in range(dim):
+            for j in range(len(qv_line)):
                 ax.axvline(qv_line[j], ls="dashed", color=color_q)
         
         N = sns.kdeplot(x=samples[:,i],ax=ax,shade=diag_shade, color=diag_shade_color, lw=lw_1d, **kwargs)

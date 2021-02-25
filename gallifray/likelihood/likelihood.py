@@ -95,11 +95,13 @@ class likelihood(object):
             imarr = xsringauss(I0, R_p, R_n, ecn, f, gax, aq, gq, phi,fov, dim=dim)
             model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
             model_amp = model_vis['amp']
-
+            
         model = model_amp
         obs = self.obs_amp
         sigma = self.obs_sigma
+        
         lp = -0.5*sum((model - obs)**2/sigma + np.log(sigma) + np.log(2*np.pi))
+        
         return lp
         
     def ln_vis_amp(self, **kwargs):
@@ -110,44 +112,44 @@ class likelihood(object):
         Return:
             Calculated Likelihood Distribution
         """
-    
+        fov = self.model_fov
         if self.model_type=='sym_gauss':
-            I0, sigma, fov = self.param
+            I0, sigma = self.param
             dim = len(self.obs_amp)
             imarr = gauss(I0, sigma, fov, dim=dim)
             model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
             model_amp = model_vis['amp']
             
         if self.model_type=='asym_gauss':
-            I0, A, sigma, phi, fov = self.param
+            I0, A, sigma, phi = self.param
             dim = len(self.obs_amp)
             imarr = asym_gauss(I0, A, sigma, phi, fov, dim=dim)
             model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargse)
             model_amp = model_vis['amp']
             
         if self.model_type=='disk':
-            I0, R, fov = param
+            I0, R = param
             dim = len(self.obs_amp)
             imarr = disk(I0, R, fov, dim=dim)
             model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
             model_amp = model_vis['amp']
             
         if self.model_type=='xsring':
-            I0, R_p, R_n, ecn, f, phi, fov = param
+            I0, R_p, R_n, ecn, f, phi  = self.param
             dim = len(self.obs_amp)
             imarr = xsring(I0, R_p, R_n, ecn, f, phi,fov, dim=dim)
             model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
             model_amp = model_vis['amp']
             
         if self.model_type=='xsringauss':
-            I0, R_p, R_n, ecn, f, gax, aq, gq, phi, fov = param
+            I0, R_p, R_n, ecn, f, gax, aq, gq, phi = self.param
             dim = len(self.obs_amp)
             imarr = xsringauss(I0, R_p, R_n, ecn, f, gax, aq, gq, phi,fov, dim=dim)
             model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
             model_amp = model_vis['amp']
         
         model = model_amp
-        obs = self.obs_mp
+        obs = self.obs_amp
         sigma = self.obs_sigma
         z = (model * obs)/sigma**2
         

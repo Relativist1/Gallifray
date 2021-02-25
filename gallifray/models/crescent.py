@@ -98,7 +98,7 @@ class crescent(object):
         crescarr = cres_arr * self.I0/np.sum(cres_arr) #Normalise
         return crescarr
     
-    def vis_data(self, fov, uv='default',interp=False,points=500):
+    def vis_data(self, fov, uv='default',interp=False,points=512):
         """"Generate complex visibilites
             
         Return:
@@ -122,26 +122,17 @@ class crescent(object):
         uv = np.sqrt(u**2 + v**2)
         bl = uv
 
-        if interp:
+        if interp is not None:
+            if not points:
+                points = len(uv)
             bl_new = np.linspace(min(uv), max(uv), points)
             interp_vis = interp1d(np.asarray(uv), np.abs(visibility), kind=interp)
             vis3 = interp_vis(bl_new)
             vis_n = vis3
 
-        if interp==False:
+        if interp==None:
             bl_new = uv
             vis_n = visibility
-
-        vis_data = {'info': 'Complex Visibilites',
-                  'vis' : vis_n,
-                  'real': np.real(vis_n),
-                  'imaginary': np.imag(vis_n),
-                  'amp': np.abs(vis_n),
-                  'u': u,
-                  'v': v,
-                  'bl': bl_new
-                  }
-        return vis_data
     
     def sky_blur(self, beam_params=[1.309, 0.64, 78*np.pi/180], beam_size=10):
         """Convolves the image with a gaussian kernel

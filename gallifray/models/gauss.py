@@ -85,24 +85,7 @@ class sym_gauss(object):
         uv = np.sqrt(u**2 + v**2)
         bl = uv
         
-        if interp!=None and interp=='spline':
-            def cubic_spline_interp(x,y,new_x,a=-0.5) :
-                delta = x[1]-x[0]
-                F = np.zeros(len(new_x))
-                for j in range(len(new_x)) :
-                    dx = (x-new_x[j])/delta
-                    weight = (-a)*(dx**3+5*dx**2+8*dx+4)*(dx>=-2)*(dx<-1) + \
-                        (-(a+2)*dx**3-(a+3)*dx**2+1)*(dx>=-1)*(dx<=0) + \
-                        ((a+2)*dx**3-(a+3)*dx**2+1)*(dx>0)*(dx<=1) + \
-                        (-a)*(-dx**3+5*dx**2-8*dx+4)*(dx>1)*(dx<=2)
-                    F[j] = np.sum(weight*y)
-                return F
-            
-            bl_new = np.linspace(min(uv), max(uv), points)
-            vis3 = cubic_spline_interp(uv,np.abs(visibility),bl_new,a=A)
-            vis_n = vis3
-
-        if interp!=None and interp!='spline':
+        if interp is not None:
             if not points:
                 points = len(uv)
             bl_new = np.linspace(min(uv), max(uv), points)
