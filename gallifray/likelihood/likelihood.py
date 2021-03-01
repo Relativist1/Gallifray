@@ -76,9 +76,16 @@ class likelihood(object):
             model_amp = model_vis['amp']
             
         if self.model_type=='disk':
-            I0, R = param
+            I0, R = self.param
             dim = len(self.obs_amp)
             imarr = disk(I0, R, fov, dim=dim)
+            model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
+            model_amp = model_vis['amp']
+            
+        if self.model_type=='crescent':
+            I0, R, psi, tau, phi = self.param
+            dim = len(self.obs_amp)
+            imarr = crescent(I0, R, psi, tau, phi,fov, dim=dim)
             model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
             model_amp = model_vis['amp']
             
@@ -128,9 +135,16 @@ class likelihood(object):
             model_amp = model_vis['amp']
             
         if self.model_type=='disk':
-            I0, R = param
+            I0, R = self.param
             dim = len(self.obs_amp)
             imarr = disk(I0, R, fov, dim=dim)
+            model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
+            model_amp = model_vis['amp']
+            
+        if self.model_type=='crescent':
+            I0, R, psi, tau, phi = self.param
+            dim = len(self.obs_amp)
+            imarr = crescent(I0, R, psi, tau, phi, fov, dim=dim)
             model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
             model_amp = model_vis['amp']
             

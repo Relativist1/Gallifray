@@ -12,8 +12,8 @@ a geometric model over supplied some observed dataset.
  
  """
 
-__author__      = "Barack Obama"
-__copyright__   = "Copyright 2009, Planet Earth"
+__author__      = "Saurabh"
+__copyright__   = "Copyright 2020, Gallifray"
 
 #---------------------------------------------------------------------------------#
 import numpy as np

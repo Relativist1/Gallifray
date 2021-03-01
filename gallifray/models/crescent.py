@@ -133,6 +133,17 @@ class crescent(object):
         if interp==None:
             bl_new = uv
             vis_n = visibility
+            
+        vis_data = {'info': 'Complex Visibilites',
+                  'vis' : vis_n,
+                  'real': np.real(vis_n),
+                  'imaginary': np.imag(vis_n),
+                  'amp': np.abs(vis_n),
+                  'u': u,
+                  'v': v,
+                  'bl': bl_new
+                  }
+        return vis_data
     
     def sky_blur(self, beam_params=[1.309, 0.64, 78*np.pi/180], beam_size=10):
         """Convolves the image with a gaussian kernel

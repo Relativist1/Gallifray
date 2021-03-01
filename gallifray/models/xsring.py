@@ -97,7 +97,7 @@ class xsring(object):
                     xsring_arr[i-self.x_off][j-self.y_off] = xsring
         return xsring_arr
     
-    def vis_data(self, fov, uv='default',A=-0.5,interp=None,points=512):
+    def vis_data(self, fov, uv='default',interp=None,points=512):
         """Generate complex visibilites
             
         Return:
