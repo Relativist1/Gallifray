@@ -25,21 +25,21 @@ def priori_transform(param, model_type, type='uniform'):
 
 
 
-def ln_probability(param, uv, obs_amp, obs_sigma, model_type, model_fov, likelihood, prior_type):
+def ln_probability(param, uv, obs_amp, obs_sigma, model_type, model_fov, likelihood, prior_type, interp):
     """Defines the log probability
 
     Return:
        log likelihood
     """
-    def lkh(param, uv, obs_amp, obs_sigma, model_type, model_fov, likelihood='default'):
+    def lkh(param, uv, obs_amp, obs_sigma, model_type, model_fov, interp, likelihood='default'):
         lk = gr.likelihood(param, uv, obs_amp, obs_sigma, model_type, model_fov)
         if likelihood=='default' or likelihood=='gaussian':
-            lkhood = lk.ln_gaussian()
+            lkhood = lk.ln_gaussian(interp=interp)
         if likelihood=='rice' or likelihood=='ln_vis_amp':
-            lkhood = lk.ln_vis_amp()
+            lkhood = lk.ln_vis_amp(interp=interp)
         return lkhood
     
     lnp = priori_transform(param, model_type, prior_type)
     if not np.isfinite(lnp):
        return -np.inf
-    return lnp + lkh(param, uv, obs_amp, obs_sigma, model_type, model_fov, likelihood)
+    return lnp + lkh(param, uv, obs_amp, obs_sigma, model_type, model_fov, interp, likelihood)

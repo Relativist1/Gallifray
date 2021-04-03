@@ -98,7 +98,7 @@ class crescent(object):
         crescarr = cres_arr * self.I0/np.sum(cres_arr) #Normalise
         return crescarr
     
-    def vis_data(self, fov, uv='default',interp=False,points=512):
+    def vis_data(self, fov, uv='default',interp=None,points=512):
         """"Generate complex visibilites
             
         Return:
@@ -120,9 +120,11 @@ class crescent(object):
         np.exp(-(2j*np.pi*(self.a*u+self.b*v)))*self.R_n*jv(1,(2*np.pi*np.sqrt(u**2 + v**2))*self.R_p))
        
         uv = np.sqrt(u**2 + v**2)
-        bl = uv
-
-        if interp is not None:
+        
+        bl_new = uv
+        vis_n = visibility
+        
+        if interp:
             if not points:
                 points = len(uv)
             bl_new = np.linspace(min(uv), max(uv), points)
@@ -130,9 +132,7 @@ class crescent(object):
             vis3 = interp_vis(bl_new)
             vis_n = vis3
 
-        if interp==None:
-            bl_new = uv
-            vis_n = visibility
+        
             
         vis_data = {'info': 'Complex Visibilites',
                   'vis' : vis_n,

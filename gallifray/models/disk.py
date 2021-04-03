@@ -100,19 +100,17 @@ class disk(object):
         rho = np.sqrt(u**2 + v**2)
         visibility = self.R*jv(1,(2*np.pi*rho)*self.R)/rho
         uv = np.sqrt(u**2 + v**2)
-        bl = uv
         
-        if interp is not None:
+        bl_new = uv
+        vis_n = visibility
+        
+        if interp:
             if not points:
                 points = len(uv)
             bl_new = np.linspace(min(uv), max(uv), points)
             interp_vis = interp1d(np.asarray(uv), np.abs(visibility), kind=interp)
             vis3 = interp_vis(bl_new)
             vis_n = vis3
-
-        if interp==None:
-            bl_new = uv
-            vis_n = visibility
 
 
         vis_data = {'info': 'Complex Visibilites',

@@ -63,32 +63,7 @@ def Tardis(samples,
     plt.xticks(size=14)
     plt.yticks(size=14)
 
-    for i in range(dim):
-        for j in range(i):
-            ax = axes[i, j]
-            ax.xaxis.set_major_locator(plt.MaxNLocator(4))
-            ax.yaxis.set_major_locator(plt.MaxNLocator(4))
-            fig.delaxes(axes[j][i])
-            ax.tick_params(labelbottom=False, labelleft=False, labelright=False,
-                           bottom=True, top=False, left=True, right=False,
-                           direction='in', labelsize='large')
-            if (j==0) :
-                ax.tick_params(labelleft=True)
-                if labels is not None:
-                    ax.set_ylabel(labels[i],fontsize=fontsize)
-            if (i==dim-1) :
-                ax.tick_params(labelbottom=True)
-                if labels is not None:
-                    ax.set_xlabel(labels[j],fontsize=fontsize)
-            if (j==dim-1) :
-                ax.tick_params(labelright=True)
-            if truth2d is not False:
-                ax.axvline(truths[i],color=color_truth,lw=lw_truth)
-                ax.axhline(truths[i],color=color_truth,lw=lw_truth)
-                
-            M = sns.kdeplot(x=samples[:,j], y=samples[:,i],ax=ax, color=shade_color, shade=shade, levels=contour_levels,
-                            **kwargs)
-
+    
     for i in range(dim):
         ax = axes[i, i]
         ax.xaxis.set_major_locator(plt.MaxNLocator(4))
@@ -126,8 +101,34 @@ def Tardis(samples,
                 ax.axvline(qv_line[j], ls="dashed", color=color_q)
         
         N = sns.kdeplot(x=samples[:,i],ax=ax,shade=diag_shade, color=diag_shade_color, lw=lw_1d, **kwargs)
+
+    for i in range(dim):
+        for j in range(i):
+            ax = axes[i, j]
+            ax.xaxis.set_major_locator(plt.MaxNLocator(4))
+            ax.yaxis.set_major_locator(plt.MaxNLocator(4))
+            fig.delaxes(axes[j][i])
+            ax.tick_params(labelbottom=False, labelleft=False, labelright=False,
+                           bottom=True, top=False, left=True, right=False,
+                           direction='in', labelsize='large')
+            if (j==0) :
+                ax.tick_params(labelleft=True)
+                if labels is not None:
+                    ax.set_ylabel(labels[i],fontsize=fontsize)
+            if (i==dim-1) :
+                ax.tick_params(labelbottom=True)
+                if labels is not None:
+                    ax.set_xlabel(labels[j],fontsize=fontsize)
+            if (j==dim-1) :
+                ax.tick_params(labelright=True)
+            if truth2d is not False:
+                ax.axvline(truths[i],color=color_truth,lw=lw_truth)
+                ax.axhline(truths[i],color=color_truth,lw=lw_truth)
+                
+            M = sns.kdeplot(x=samples[:,j], y=samples[:,i],ax=ax, color=shade_color, shade=shade, **kwargs)
         
-            
+    
+    
     if savefig is not None:
         fname = savefig
         plt.savefig(fname, bbox_inches='tight', pad_inches = pad_inches,dpi=dpi)

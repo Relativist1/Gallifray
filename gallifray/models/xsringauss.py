@@ -151,19 +151,17 @@ class xsringauss(object):
         v_g = np.exp(-2*(np.pi*k)**2*rho2 - 1j*2*np.pi*u*(self.R_n-self.d))
         visibility = self.I0*((1-self.gq)*v_r + self.gq*v_g)
         uv = np.sqrt(u**2 + v**2)
-        bl = uv
-
-        if interp is not None:
+        
+        bl_new = uv
+        vis_n = visibility
+        
+        if interp:
             if not points:
                 points = len(uv)
             bl_new = np.linspace(min(uv), max(uv), points)
             interp_vis = interp1d(np.asarray(uv), np.abs(visibility), kind=interp)
             vis3 = interp_vis(bl_new)
             vis_n = vis3
-
-        elif interp==None:
-            bl_new = uv
-            vis_n = visibility
 
         vis_data = {'info': 'Complex Visibilites',
                   'vis' : vis_n,

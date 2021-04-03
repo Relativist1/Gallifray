@@ -51,7 +51,7 @@ class likelihood(object):
         self.obs_sigma = obs_sigma
         self.model_type = model_type
         self.model_fov = model_fov
-    def ln_gaussian(self, **kwargs):
+    def ln_gaussian(self, interp, **kwargs):
         """GALLIFRAY :: Gaussian distribution likelihood for general purposes
         
         Args:
@@ -65,42 +65,42 @@ class likelihood(object):
             I0, sigma = self.param
             dim = len(self.obs_amp)
             imarr = gauss(I0, sigma, fov, dim=dim)
-            model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
+            model_vis = imarr.vis_data(fov=fov, interp=interp, uv=self.uv, **kwargs)
             model_amp = model_vis['amp']
             
         if self.model_type=='asym_gauss':
             I0, A, sigma, phi = self.param
             dim = len(self.obs_amp)
             imarr = asym_gauss(I0, A, sigma, phi, fov, dim=dim)
-            model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
+            model_vis = imarr.vis_data(fov=fov, interp=interp, uv=self.uv, **kwargs)
             model_amp = model_vis['amp']
             
         if self.model_type=='disk':
             I0, R = self.param
             dim = len(self.obs_amp)
             imarr = disk(I0, R, fov, dim=dim)
-            model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
+            model_vis = imarr.vis_data(fov=fov, interp=interp, uv=self.uv, **kwargs)
             model_amp = model_vis['amp']
             
         if self.model_type=='crescent':
             I0, R, psi, tau, phi = self.param
             dim = len(self.obs_amp)
             imarr = crescent(I0, R, psi, tau, phi,fov, dim=dim)
-            model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
+            model_vis = imarr.vis_data(fov=fov, interp=interp, uv=self.uv, **kwargs)
             model_amp = model_vis['amp']
             
         if self.model_type=='xsring':
             I0, R_p, R_n, ecn, f, phi = self.param
             dim = len(self.obs_amp)
             imarr = xsring(I0, R_p, R_n, ecn, f, phi,fov, dim=dim)
-            model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
+            model_vis = imarr.vis_data(fov=fov, interp=interp, uv=self.uv, **kwargs)
             model_amp = model_vis['amp']
             
         if self.model_type=='xsringauss':
             I0, R_p, R_n, ecn, f, gax, aq, gq, phi = self.param
             dim = len(self.obs_amp)
             imarr = xsringauss(I0, R_p, R_n, ecn, f, gax, aq, gq, phi,fov, dim=dim)
-            model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
+            model_vis = imarr.vis_data(fov=fov, interp=interp, uv=self.uv, **kwargs)
             model_amp = model_vis['amp']
             
         model = model_amp
@@ -111,7 +111,7 @@ class likelihood(object):
         
         return lp
         
-    def ln_vis_amp(self, **kwargs):
+    def ln_vis_amp(self, interp, **kwargs):
         """GALLIFRAY :: Rice distribution likelihood for visibility amplitudes
 
         Args:
@@ -124,42 +124,42 @@ class likelihood(object):
             I0, sigma = self.param
             dim = len(self.obs_amp)
             imarr = gauss(I0, sigma, fov, dim=dim)
-            model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
+            model_vis = imarr.vis_data(fov=fov, interp=interp, uv=self.uv, **kwargs)
             model_amp = model_vis['amp']
             
         if self.model_type=='asym_gauss':
             I0, A, sigma, phi = self.param
             dim = len(self.obs_amp)
             imarr = asym_gauss(I0, A, sigma, phi, fov, dim=dim)
-            model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargse)
+            model_vis = imarr.vis_data(fov=fov, interp=interp, uv=self.uv, **kwargse)
             model_amp = model_vis['amp']
             
         if self.model_type=='disk':
             I0, R = self.param
             dim = len(self.obs_amp)
             imarr = disk(I0, R, fov, dim=dim)
-            model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
+            model_vis = imarr.vis_data(fov=fov, interp=interp, uv=self.uv, **kwargs)
             model_amp = model_vis['amp']
             
         if self.model_type=='crescent':
             I0, R, psi, tau, phi = self.param
             dim = len(self.obs_amp)
             imarr = crescent(I0, R, psi, tau, phi, fov, dim=dim)
-            model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
+            model_vis = imarr.vis_data(fov=fov, interp=interp, uv=self.uv, **kwargs)
             model_amp = model_vis['amp']
             
         if self.model_type=='xsring':
             I0, R_p, R_n, ecn, f, phi  = self.param
             dim = len(self.obs_amp)
             imarr = xsring(I0, R_p, R_n, ecn, f, phi,fov, dim=dim)
-            model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
+            model_vis = imarr.vis_data(fov=fov, interp=interp, uv=self.uv, **kwargs)
             model_amp = model_vis['amp']
             
         if self.model_type=='xsringauss':
             I0, R_p, R_n, ecn, f, gax, aq, gq, phi = self.param
             dim = len(self.obs_amp)
             imarr = xsringauss(I0, R_p, R_n, ecn, f, gax, aq, gq, phi,fov, dim=dim)
-            model_vis = imarr.vis_data(fov=fov, uv=self.uv, **kwargs)
+            model_vis = imarr.vis_data(fov=fov, interp=interp, uv=self.uv, **kwargs)
             model_amp = model_vis['amp']
         
         model = model_amp
