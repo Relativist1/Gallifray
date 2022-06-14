@@ -22,6 +22,7 @@ from __future__ import print_function
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from gallifray.const import Labels
 
 plt.rcParams['font.family'] = 'Times New Roman'
 plt.rcParams['mathtext.fontset'] = 'stix'
@@ -29,7 +30,8 @@ plt.rcParams['font.size'] = 18
 
 
 def Tardis(samples,
-              labels=None,
+              model_type,
+              plabels=None,
               truths=None,
               savefig=None,
               contour_levels=[0.6827,0.9,1],
@@ -62,8 +64,10 @@ def Tardis(samples,
     plt.subplots_adjust(wspace=0, hspace=0)
     plt.xticks(size=14)
     plt.yticks(size=14)
-
-    
+    if model_type=='geom':
+        labels = Labels(model_type)
+    else:
+        labels=plabels
     for i in range(dim):
         ax = axes[i, i]
         ax.xaxis.set_major_locator(plt.MaxNLocator(4))
@@ -73,12 +77,12 @@ def Tardis(samples,
                        right=True, direction='in', length=4, labelsize='large')
         
         if i==0:
-            if labels is not None:
+            if labels is not False:
                 ax.set_xlabel(labels[-1],fontsize=fontsize)
                 ax.set_ylabel(labels[i],fontsize=fontsize)
         if i==dim-1:
             ax.tick_params(labelbottom=True)
-            if labels is not None:
+            if labels is not False:
                 ax.set_xlabel(labels[-1],fontsize=fontsize)
         
         if truth1d is not False:
@@ -89,7 +93,7 @@ def Tardis(samples,
             Diff = np.diff(per)
             qv = [per[1], Diff[0], Diff[1]]
             qv_line = [qv[0], qv[0]-qv[1], qv[0]+qv[2]]
-            if labels is not None:
+            if labels is not False:
                 txt = r"{3} = ${{{0:.3f}}}_{{-{1:.3f}}}^{{+{2:.3f}}}$"
                 txt = txt.format(qv[0], qv[1], qv[2], labels[i])
             else:
@@ -113,11 +117,11 @@ def Tardis(samples,
                            direction='in', labelsize='large')
             if (j==0) :
                 ax.tick_params(labelleft=True)
-                if labels is not None:
+                if labels is not False:
                     ax.set_ylabel(labels[i],fontsize=fontsize)
             if (i==dim-1) :
                 ax.tick_params(labelbottom=True)
-                if labels is not None:
+                if labels is not False:
                     ax.set_xlabel(labels[j],fontsize=fontsize)
             if (j==dim-1) :
                 ax.tick_params(labelright=True)
@@ -129,7 +133,7 @@ def Tardis(samples,
         
     
     
-    if savefig is not None:
+    if savefig is not False:
         fname = savefig
         plt.savefig(fname, bbox_inches='tight', pad_inches = pad_inches,dpi=dpi)
         

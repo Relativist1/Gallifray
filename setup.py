@@ -29,7 +29,5 @@ if __name__ == "__main__":
                             "matplotlib",
                             "numpy",
                             "scipy",
-                            "astropy",
-                            "corner"]
+                            "astropy"]
          )
-

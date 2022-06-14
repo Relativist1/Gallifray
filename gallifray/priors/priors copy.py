@@ -26,11 +26,47 @@ models_list = ["sym_gauss", "asym_gauss", "disk", "crescent", "xsring", "xsringa
 pi = 3.141592653589793
 
 
+prior_sym_gauss  = {"I_0": [0, 10],
+                    "S"  : [0, 100],
+                    "phi": [0, np.pi]}
+
+prior_asym_gauss = {"I_0": [0, 10],
+                    "S"  : [0, 100],
+                    "A"  : [0, 0.99],
+                    "phi": [0, np.pi]}
+
+prior_disk       = {"I_0": [0, 10],
+                    "Rp" : [0, 100]}
+
+prior_crescent   = {"I_0": [0, 10],
+                    "R_p": [0, 100],
+                    "R_n": [0, 100],
+                    "ecn": [-1, 1],
+                    "phi": [-np.pi, np.pi]}
+
+prior_xsring     = {"I_0": [0, 10],
+                    "R_p": [0, 100],
+                    "R_n": [0, 100],
+                    "ecn": [-1, 1],
+                    "f"  : [0, 1],
+                    "phi": [-np.pi, np.pi]}
+
+prior_xsringauss = {"I_0": [0, 10],
+                    "R_p": [0, 100],
+                    "R_n": [0, 100],
+                    "ecn": [-1, 1],
+                    "f"  : [0, 1],
+                    "gax": [0, 1],
+                    "aq" : [0, 1],
+                    "gq" : [0 ,1],
+                    "phi": [-np.pi, np.pi]}
+
+
 class priors():
     """Prior Class
         
     """
-    def __init__(self, param):
+    def __init__(self, model_type, bounds=None):
         """
         
         Args:
@@ -39,32 +75,33 @@ class priors():
         Return:
             
         """
-        self.param = param
-    
-    def lnprior(self, model_type, p_type='uniform'):
+        self.model_type = model_type
+        self.bounds = bounds
+
+
+    def lnprior(self, type='uniform'):
         """
         Args:
             model_type (str): model (eg. ['geom', 'sym_gauss'] or ['geom', 'xsring'] or ['physical',model])
             type: type of prior
                 
-                'uniform' : Set uniform priors
+                'flat' : Set uniform priors
                 'gaussian' : Set gaussian priors
             
         Note:
-            For physical model extra args for parameters priors (type:dict) : {str : [mean, min, max, sigma]}
+            For physical model extra args for parameters priors (type:dict) : {str : [min, max]}
 
-            eg: pr_params = {'a'   : [0, -1, 1, 0.1],
-                            'inc'  : [0, -90, 90, 0.1],
-                             'w'   : [0, -5, 5, 0.1]}
+            eg: pr_params = {'a'   : [-1, 1],
+                            'inc' : [-90, 90],
+                             'w'   : [-5, 5]}
             
         """
 
         # if isinstance(model_type[1],str)==True:
         #     if model_type[1] not in models_list:
         #         raise("model not yet implemented!")
-        
-
-        if model_type[0]=='geom':
+            
+        if model_type=='geom':
             if model_type[1]=='sym_gauss':
                 pr = prior_sym_gauss(self.param)
             if model_type[1]=='asym_gauss':
@@ -79,13 +116,34 @@ class priors():
                 pr = prior_xsringauss(self.param)
                 
         elif model_type[0]=='physical':
-            pr = prior_gen(self.param, model_type[1],type)
+            pr = prior_gen(self.param, model_type[1])
         return pr 
 
-def ln_g(x, mu, sigma):
-    return np.log(1.0/(np.sqrt(2*np.pi)*sigma))-0.5*(x-mu)**2/sigma**2
+    def check():
 
-def prior_sym_gauss(param):
+        m1 = []
+        m2 = []
+        out = []
+
+        for i in param.keys():
+            m1.append(min(param[i]))
+            m2.append(max(param[i]))
+
+        #checks the params if they are within limits
+                
+        for i in range(len(p0)):
+            if m1[i]<p0[i]<m2[i]:
+                out.append(0)
+            else:
+                out.append(-np.inf)
+        #checks if any inf value
+
+        if min(out)==-np.inf:
+            return -np.inf
+        else:
+            return 0
+
+def prior_sym_gauss(param, bounds=None):
        
     I0, S, phi = param
 
@@ -136,15 +194,12 @@ def prior_xsringauss(param):
     else:
         return -np.inf
 
-def prior_gen(p0, param, p_type='uniform'):
+def prior_gen(p0, param):
     
     m1 = []
     m2 = []
     out = []
     
-    mu = []
-    sigma = []
-
     # for key, value in dict(pr_params).items():
     #     if value == 'freeze':
     #         pr_params.pop(key)
@@ -152,27 +207,19 @@ def prior_gen(p0, param, p_type='uniform'):
     #stores the min/max values
 
     for i in param.keys():
-        mu.append(param[i][0])
         m1.append(param[i][1])
         m2.append(param[i][2])
-        sigma.append(param[i][3])
 
     #checks the params if they are within limits
             
     for i in range(len(p0)):
         if m1[i]<p0[i]<m2[i]:
             out.append(0)
-
         else:
             out.append(-np.inf)
     #checks if any inf value
-    final = 0
-    if p_type=='gaussian':
-        for i in range(len(p0)):
-            final += ln_g(p0[i],mu[i],sigma[i])
 
     if min(out)==-np.inf:
         return -np.inf
     else:
-        return final
-
+        return 0

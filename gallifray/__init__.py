@@ -32,4 +32,5 @@ from gallifray.priors.priors import *
 
 from gallifray.mcmc import *
 from gallifray.mcmc.mcmc import *
-from gallifray.mcmc.mcmc_utils import *
+
+from gallifray.const import *
