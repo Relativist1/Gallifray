@@ -60,24 +60,9 @@ obs_bl = obs_m.unpack(['uvdist'],conj=True)['uvdist']
 UV = [u_eh, v_eh]
 initial = [I0_true, Rp_true, Rn_true, ecn_true, f_true, phi_true]
 
-#----------------------------Define the likeliihod --------------------------------#
-def ln_prob(param, uv, obs_amp, obs_sigma, model_type, model_fov,
-            likelihood, prior_type):
-    f = gr.mcmc_utils.ln_probability(param=param,
-                                    uv=UV,
-                                    obs_amp=vis_amp,
-                                    obs_sigma=vis_err,
-                                    model_type=model_type,
-                                    model_fov=fov,
-                                    likelihood=likelihood,
-                                    prior_type=prior_type,
-                                    )
-    return f
-    
 #---------------------------Intialising the MCMC sampler---------------------------#
 
-prepare_mcmc = gr.mcmc(initial, likelihood=ln_prob, model_type=model_type, uv=UV,
-                      obs=vis_amp, obs_sigma=vis_err, model_fov=fov,
+prepare_mcmc = gr.mcmc(initial, likelihood=ln_prob, model_type=model_type, obs_data=obs_data, model_fov=fov,
                       n_walkers=n_walkers, n_samples=n_samples,
                       prior_type=prior_type, likelihood_type=likelihood_type)
           
