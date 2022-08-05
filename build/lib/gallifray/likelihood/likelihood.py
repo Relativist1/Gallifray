@@ -247,7 +247,7 @@ def vis_observe(X, Y, Z, obs_ref, theta_G):
     rf = obs_ref.rf
     source = obs_ref.source 
 
-    psize = abs(X[0][0] - X[0][1])*eh.RADPERUAS*theta_G
+    psize = abs(Y[0][0] - Y[0][1])*eh.RADPERUAS*theta_G
 
     im1 = eh.image.Image(np.flipud(Z),psize=psize,ra=ra, dec=dec, rf= rf, source=source)
 
