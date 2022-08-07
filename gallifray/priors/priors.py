@@ -79,7 +79,7 @@ class priors():
                 pr = prior_xsringauss(self.param)
                 
         elif model_type[0]=='physical':
-            pr = prior_gen(self.param, model_type[1],type)
+            pr = prior_gen(self.param, model_type[1],p_type)
         return pr 
 
 def ln_g(x, mu, sigma):
