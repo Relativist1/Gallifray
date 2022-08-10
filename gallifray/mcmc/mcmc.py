@@ -39,7 +39,7 @@ class mcmc(object):
         param (list) : list of parameters
         
     """
-    def __init__(self, param, model_type, obs_data, model_fov, theta_G, n_walkers=10, n_samples=1000, blob_width = 1e-2, likelihood_type='gaussian', prior_type='uniform',exec_c='./grrt', interp=None):
+    def __init__(self, param, model_type, obs_data, model_fov, fov_m, theta_G, n_walkers=10, n_samples=1000, blob_width = 1e-2, likelihood_type='gaussian', prior_type='uniform',exec_c='./grrt', interp=None):
         """
         
         Args:
@@ -70,7 +70,7 @@ class mcmc(object):
         self.interp = interp
         self.blob_width = blob_width
         self.theta_G = theta_G
-
+        self.fov_m = fov_m
 
     def run_sampler(self, n_threads="4", minimize_lk = False,mult_proc=False, progress=True, moves=None, args=None, kwargs=None, backend=None, vectorize=False, blobs_dtype=None, a=None, postargs=None, threads=None, **kkwargs):
         """An ensemble MCMC sample and samples iterator
@@ -93,7 +93,7 @@ class mcmc(object):
 
             def lk_h(p0, pr_param, exec_c):
                 lk = gr.likelihood(p0, self.obs_data, self.model_type, self.model_fov, self.theta_G)
-                return -lk.ln_gaussian_physical(pr_param, exec_c)
+                return -lk.ln_gaussian_physical(pr_param, exec_c, fov_m)
 
             sol1 = minimize(lk_h, initial, args=(self.param, self.exec_c))
 

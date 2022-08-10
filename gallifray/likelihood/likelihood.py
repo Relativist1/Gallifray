@@ -186,7 +186,7 @@ class likelihood(object):
         lp = sum(np.log(model) - 2*np.log(sigma) -  (model + obs)**2/(2*sigma**2) + np.log(i0(z)))/(dim + len(self.param))
         return lp
 
-    def ln_gaussian_physical(self, pr_param, exec_c):
+    def ln_gaussian_physical(self, pr_param, exec_c, fov_m):
         """GALLIFRAY :: Gaussian distribution likelihood for general purposes
         
         Args:
@@ -195,7 +195,7 @@ class likelihood(object):
             Calculated Likelihood Distribution
         """
 
-        X, Y, Z = prep_grrt(self.param, exec_c, pr_param) 
+        X, Y, Z = prep_grrt(self.param, exec_c, pr_param, fov_m) 
 
         model_amp, err = vis_observe(X, Y, Z, self.obs_data, self.theta_G)
 
@@ -208,13 +208,13 @@ class likelihood(object):
         print(lp)
         return lp
 
-def prep_grrt(p0, exec_c, pr_param):
+def prep_grrt(p0, exec_c, fov_m):
 
     get_args = exec_c
 
     #decompose and creates a list of all arguments
-    for i, keys in enumerate(pr_param):
-        get_args.append("-{} {}".format(keys, p0[i]))
+    for i in range(len(p0)):
+        get_args.append("{}".format(p0[i]))
     
     out_rt = subprocess.Popen(get_args, stdout=subprocess.PIPE).communicate()
     # print("done\n")
@@ -227,16 +227,21 @@ def prep_grrt(p0, exec_c, pr_param):
         X.append(float(i.split(",")[0]))
         Y.append(float(i.split(",")[1]))
         Z.append(float(i.split(",")[2]))
-
-
+    
     x_im = np.asarray(X)
     y_im = np.asarray(Y)
     z_im = np.asarray(Z)
 
     dim = int(np.sqrt(len(X)))
+    
 
-    x_im = x_im.reshape((dim, dim))
-    y_im = y_im.reshape((dim, dim))
+    x1  = fov_m/2;
+    x2  = fov_m/(dim+1.)
+    x3 = -x1 + x2*(x_im)
+    y3 = -x1 + x2*(y_im)
+    
+    x_im = x3.reshape((dim, dim))
+    y_im = y3.reshape((dim, dim))
     z_im = z_im.reshape((dim, dim))
 
     return [x_im, y_im,  z_im]
