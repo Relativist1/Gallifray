@@ -118,7 +118,7 @@ class mcmc(object):
                 samp = emcee.EnsembleSampler(self.n_walkers, ndim, ln_probability,pool=pool,
                                             args=(self.param, self.obs_data,
                                                 self.model_type, self.model_fov, self.likelihood_type,
-                                                self.prior_type, self.theta_G, self.exec_c),
+                                                self.prior_type, self.theta_G, self.fov_m, self.exec_c),
                                             moves=moves, kwargs=kwargs, backend=backend,
                                             vectorize=vectorize, blobs_dtype=blobs_dtype,
                                             a=a, postargs=postargs, threads=threads)
@@ -128,7 +128,7 @@ class mcmc(object):
             samp = emcee.EnsembleSampler(self.n_walkers, ndim, ln_probability,
                                             args=(self.param, self.obs_data,
                                                 self.model_type, self.model_fov, self.likelihood_type,
-                                                self.prior_type, self.theta_G, self.exec_c),
+                                                self.prior_type, self.theta_G, self.fov_m, self.exec_c),
                                             moves=moves, kwargs=kwargs, backend=backend,
                                             vectorize=vectorize, blobs_dtype=blobs_dtype,
                                             a=a, postargs=postargs, threads=threads)
@@ -146,7 +146,7 @@ def priori_transform(param, model, p_type='uniform'):
 
 
 
-def ln_probability(p0, pr_params, obs_data, model, model_fov, likelihood, prior_type, theta_G, exec_c='./grrt', interp=None):
+def ln_probability(p0, pr_params, obs_data, model, model_fov, likelihood, prior_type, theta_G, fov_m, exec_c='./grrt', interp=None):
     """Defines the log probability
 
     Return:
@@ -155,7 +155,7 @@ def ln_probability(p0, pr_params, obs_data, model, model_fov, likelihood, prior_
     def lkh(p0, pr_params, obs_data, model, model_fov, likelihood, interp=None):
         lk = gr.likelihood(p0, obs_data, model, model_fov, theta_G)
         if model[0]=='physical':
-            lkhood = lk.ln_gaussian_physical(pr_param=pr_params, exec_c=exec_c)
+            lkhood = lk.ln_gaussian_physical(pr_param=pr_params, exec_c=exec_c, fov_m=fov_m)
         else:
             lkhood = lk.ln_gaussian(interp=interp)
 
