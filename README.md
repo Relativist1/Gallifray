@@ -8,9 +8,10 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ## About
 
-**Gallifray** is a geometric modelling and parameter estimation framework for Black hole images from EHT including VLBI. Gallifray has been developed for the purpose of utilizing the Event Horizon Telescope results to perform analysis. Its uses can be extended to general radio interferometry. The framework utilizes emcee library for bayesian analysis and MCMC sampling, along with eht-imaging library for radio interferometric synthetic data manipulation.
+**Gallifray** is a geometric modelling and parameter estimation framework for Black hole images from EHT including VLBI. Gallifray has been developed for the purpose of utilizing the Event Horizon Telescope results to perform analysis. Its uses can be extended to general radio interferometry. This acts as a bridge between the user-defined models and model fitting via a template provided to do the necessary changes allowing one to simply use their model (phenomenological or geometrical) or the ones pre-defined in the library itself to directly fit with the VLBI datasets (synthetic/observational).
+The framework utilizes eht-imaging library for radio interferometric synthetic data manipulation.
 
-This version of the library is an early release, so please feel free to make an issue or submit a pull request.
+This version of the library is an early release, so please feel free to open an issue or submit a pull request.
 <br>
 
 ## Requirements
@@ -40,13 +41,13 @@ The most recent and stable version can be installed manually, by cloning the rep
 $ git clone https://github.com/Relativist1/Gallifray.git
 $ cd Gallifray
 $ pip install -r requirements.txt
-$ python3 setup.py install
+$ pip install .
 ```
 ## Documentation
 Coming soon....
 
 ## Models
-Included Models
+Included Geometric Models
 
 | Model      | Parameters                            |
 |------------|---------------------------------------|
@@ -59,9 +60,9 @@ Included Models
 
 
 ## Basic usage
-To run a sample script with MCMC sampling for observational or simulated dataset 
+Example scripts have been provided in the example_scripts/ folder. It contains examples for fitting a geometric model and a raytracing model with ipole.
 ```sh
-$ python example_scripts/example_script_run.py
+$ python example_scripts/example_gauss.py
 ```
 ## Example usage of Tardis module 
 
@@ -90,19 +91,16 @@ gr.Tardis(samples, truths=truths, labels =labels,
 <p align="left"><img width=80% src="images/tardis_example.png"></p>
 
 ## Features coming soon
-- General Relativistic Raytracing for generating static and spherically symmetric Black hole images surrounded by accretion disk.
 - New Models with parameterizations
 - User input models
 - Inclusion of more sample datasets
 
 ## Features to be included
-- Reading and writing uvfits file independently
-- Support for general relativistic ray-tracing for physically motivated Black hole images.
 - Space-VLBI simulations
 - Addition of more models
 
 ## Contact
-If you have any issue or want any help, feel free to drop an email at sbhkmr1999@gmail.com
+If you have any issues or want any help, feel free to drop an email at sbhkmr1999@gmail.com
 
 ## License
 Gallifray is licensed under GPLv3. See LICENSE.txt for more details.

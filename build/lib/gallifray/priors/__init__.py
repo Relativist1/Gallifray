@@ -7,5 +7,4 @@
 """
 
 from . import *
-from .likelihood import *
-from .image_obs import *
+from .priors import *
