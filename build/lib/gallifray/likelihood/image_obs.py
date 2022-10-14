@@ -22,9 +22,8 @@ from builtins import object
 import numpy as np
 import ehtim as eh
 import sys
+from gallifray.const import *
 
-M_sgr = 4.15e6  # in M
-D_sgr = 8.178e3 # in pc
 
 def ipole_to_obs(X, Y, Z, obs_ref, fov_m):
     ra = obs_ref.ra

@@ -15,7 +15,7 @@ if __name__ == "__main__":
           keywords = "astronomy imaging EHT VLBI MCMC",
           url = "https://github.com/Relativist1/Gallifray",
           packages = ["gallifray",
-                      "gallifra.const",
+                      
                       "gallifray.models",
                       "gallifray.likelihood",
                       "gallifray.priors",

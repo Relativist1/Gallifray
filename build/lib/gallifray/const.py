@@ -9,6 +9,8 @@ from __future__ import division
 from __future__ import print_function
 
 
+M_sgr = 4.15e6  # in M
+D_sgr = 8.178e3 # in pc 
 
 models_list = ['sym_gauss', 'asym_gauss', 'disk', 'crescent', 'xsring', 'xsringauss']
 

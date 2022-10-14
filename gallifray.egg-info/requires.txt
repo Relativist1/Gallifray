@@ -1,0 +1,8 @@
+ehtim
+emcee
+seaborn
+future
+matplotlib
+numpy
+scipy
+astropy

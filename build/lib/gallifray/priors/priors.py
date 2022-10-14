@@ -45,7 +45,7 @@ class priors():
         """
         Args:
             model_type (str): model (eg. ['geom', 'sym_gauss'] or ['geom', 'xsring'] or ['physical',model])
-            type: type of prior
+            p_type: type of prior
                 
                 'uniform' : Set uniform priors
                 'gaussian' : Set gaussian priors

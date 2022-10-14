@@ -28,11 +28,10 @@ from gallifray.models import *
 import ehtim as eh
 import sys
 from gallifray.likelihood.image_obs import *
-
+from gallifray.const import *
 def blockp():
     sys.stdout = open(os.devnull,'w')
-M_sgr = 4.15e6  # in M
-D_sgr = 8.178e3 # in pc 
+
 
 class likelihood(object):
     """MCMC sampling class

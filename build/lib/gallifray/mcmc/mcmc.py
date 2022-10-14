@@ -39,13 +39,31 @@ class mcmc(object):
         param (list) : list of parameters
         
     """
-    def __init__(self, param, model_type, obs_data, model_fov, fov_m, code_type=None, use_priori_default = True, theta_G=1, n_walkers=10, n_samples=1000, blob_width = 1e-1, likelihood_type='gaussian', prior_type='uniform',exec_c=None, interp=None):
+    def __init__(self, param, model_type, obs_data, model_fov, fov_m=None, code_type=None, use_priori_default = True, theta_G=1, n_walkers=10, n_samples=1000, blob_width = 1e-1, likelihood_type='gaussian', prior_type='uniform',exec_c=None, interp=None):
         """
         
         Args:
-            param (list): list of parameters
-            
+            param (dict): list of parameters
+            eg: param = {'a'   : [0, -1, 1, 0.1],
+                            'inc'  : [0, -90, 90, 0.1],
+                             'w'   : [0, -5, 5, 0.1]}
+            model_type (list): list of model type
+            eg: model_type = ['geom','xsring', param]
+                model_type = ['physical', param] (for raytracing models)
+            obs_data (ehtim obsdata): reference data
+            model_fov (float): field of view 
+            fov_m (float)    : field of view (in M), required for raytracing model
+            code_type (str)  : code you are using eg. 'ipole'
+            use_priori_default (bool) : False if using the implemented priori for geometric models
+            n_walkers (int)  : number of walkers
+            n_samples (int)  : number of samples/iterations
+            blob_width (float) : Width for the starting positions of different walkers
+            likelihood_type (str) : type of likelihood to use. Available : 'gaussian', 'ln_vis_amp'.
+            priori_type (str) : type of priors to use. Availanle : 'uniform', 'gaussian'
+            exec_c (list)  : executables for running compiled raytracing code as a list.
+                
         Return:
+            mcmc object with likelihood and prior information to run
             
         """
 
@@ -78,6 +96,9 @@ class mcmc(object):
         
         Args:
             mult_proc (bool): multiprocessing via paralleization, if True, then the sampler runs parallely.
+            n_threads (str) : number of threads
+            init_position (str) : initial positions, whether to start from given intitial guess or randomly from the prior
+                                  Available : 'guess', 'random'
         Return:
             
         """
@@ -107,13 +128,6 @@ class mcmc(object):
                 positions = initial + self.blob_width*np.random.randn(self.n_walkers, ndim)
             elif init_position=='random':
                 positions = init_parameters(self.param, self.n_walkers)  #edit 31 August, 2022
-
-        # def ln_prob(p0, obs_data, model_type, model_fov,
-        #     likelihood, prior_type,interp=None):
-        #     f = ln_probability(p0=p0, pr_params=self.param, obs_data=obs_data,
-        #                                     model=model_type,model_fov=self.model_fov,likelihood=likelihood,
-        #                                     prior_type=prior_type,exec_c=self.exec_c, theta_G=self.theta_G, interp=interp)
-        #     return f
 
         if mult_proc:
 
