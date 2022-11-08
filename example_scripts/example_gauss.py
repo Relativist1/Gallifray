@@ -25,9 +25,9 @@ from gallifray.models import xsring
 import ehtim as eh
 import corner
 import emcee
-path = 'synthetic_data_asym_gauss.uvfits' # path of the dataset
+path = 'test_asym_gauss.uvfits' # path of the dataset
 
-n_walkers = 20           # No of walkers
+n_walkers = 50           # No of walkers
 n_samples = 500          # No of iterations
 
 #------------------------Inital guess for the parameters--------------------------#
@@ -35,13 +35,13 @@ I0_true = 2
 sigma_true = 20
 A_true = 0.5
 phi_true = np.pi/2
-fov = sigma_true*2 + 40
+fov = sigma_true*2 + 120
 
 
 param = {'I0': [I0_true, 0, 10, 0.2],
          'sigma': [sigma_true, 0, 100, 0.3],
          'A' : [A_true, 0, 1, 0.2],
-         'phi': [phi_true, -np.pi, np.pi, 0.2]
+         'phi': [phi_true, 0, np.pi, 0.2]
 }
 
 model_type =['geom','asym_gauss', param]   # Define the model type
@@ -55,13 +55,13 @@ obs_m.add_scans()
 obs_m = obs_m.avg_coherent(0.0,scan_avg=True)
 
 #---------------------------Intialising the MCMC sampler---------------------------#
-filename = "chain_test_asym_gauss.h5"
+filename = "chain_test_asym_gauss5.h5"
 backend = emcee.backends.HDFBackend(filename)
 prepare_mcmc = gr.mcmc(param,fov_m=40, model_type=model_type,obs_data=obs_m, model_fov=fov,
                       n_walkers=n_walkers, n_samples=n_samples,
-                      prior_type=prior_type, likelihood_type=likelihood, use_priori_default=True)
+                      prior_type=prior_type, likelihood_type=likelihood, use_priori_default=False)
           
-sampler = prepare_mcmc.run_sampler(init_position='guess',backend=backend)
+sampler = prepare_mcmc.run_sampler(init_position='random',backend=backend)
 
 # ndim = len(initial)
 # # labels = [r"$I_0$", r"$R_p (\mu as)$", "$R_n (\mu as)$", r"${\epsilon}$", r"f", r"${\phi}$"]

@@ -39,7 +39,7 @@ class mcmc(object):
         param (list) : list of parameters
         
     """
-    def __init__(self, param, model_type, obs_data, model_fov, fov_m=None, code_type=None, use_priori_default = True, theta_G=1, n_walkers=10, n_samples=1000, blob_width = 1e-1, likelihood_type='gaussian', prior_type='uniform',exec_c=None, interp=None):
+    def __init__(self, param, model_type, obs_data, model_fov, fov_m=None, code_type=None, use_priori_default = True, theta_G=1, n_walkers=10, n_samples=1000, blob_width = 1e-3, likelihood_type='gaussian', prior_type='uniform',exec_c=None, interp=None):
         """
         
         Args:

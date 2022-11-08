@@ -120,21 +120,21 @@ class likelihood(object):
         dec = self.obs_data.dec
         rf = self.obs_data.rf
         source = self.obs_data.source
-        fov_m = fov
-        DX = fov
-        DY = DX
-        pix = len(self.obs_amp)
-        NX= pix
-        NY = NX
-        Msun = 1.989e33
-        MBH = M_sgr*Msun
-        GNEWT = 6.6742e-8
-        CL = 2.99792458e10
-        L_unit = GNEWT * MBH  / (CL * CL)
-        PC = 3.085678e18
-        Dsource = D_sgr*PC
-        psize = fov_m*L_unit/Dsource * 206264806247.1*1e-6*eh.RADPERAS/pix
-        im1 = eh.image.Image(IM/np.sum(IM)*I0,psize=psize,ra=ra, dec=dec, rf= rf, source=source)
+        # fov_m = fov
+        # DX = fov
+        # DY = DX
+        # pix = len(self.obs_amp)
+        # NX= pix
+        # NY = NX
+        # Msun = 1.989e33
+        # MBH = M_sgr*Msun
+        # GNEWT = 6.6742e-8
+        # CL = 2.99792458e10
+        # L_unit = GNEWT * MBH  / (CL * CL)
+        # PC = 3.085678e18
+        # Dsource = D_sgr*PC
+        # psize = fov_m*L_unit/Dsource * 206264806247.1*1e-6*eh.RADPERAS/pix
+        im1 = eh.image.Image(IM/np.sum(IM)*I0,psize=imarr.psize*eh.RADPERUAS,ra=ra, dec=dec, rf= rf, source=source)
         obs1 = im1.observe_same(self.obs_data, add_th_noise=True,ttype='direct',verbose=False)
         blockp()
 
@@ -200,21 +200,21 @@ class likelihood(object):
         dec = self.obs_data.dec
         rf = self.obs_data.rf
         source = self.obs_data.source
-        fov_m = fov
-        DX = fov
-        DY = DX
-        pix = len(self.obs_amp)
-        NX= pix
-        NY = NX
-        Msun = 1.989e33
-        MBH = M_sgr*Msun
-        GNEWT = 6.6742e-8
-        CL = 2.99792458e10
-        L_unit = GNEWT * MBH  / (CL * CL)
-        PC = 3.085678e18
-        Dsource = D_sgr*PC
-        psize = fov_m*L_unit/Dsource * 206264806247.1*1e-6*eh.RADPERAS/pix
-        im1 = eh.image.Image(IM/np.sum(IM)*I0,psize=psize,ra=ra, dec=dec, rf= rf, source=source)
+        # fov_m = fov
+        # DX = fov
+        # DY = DX
+        # pix = len(self.obs_amp)
+        # NX= pix
+        # NY = NX
+        # Msun = 1.989e33
+        # MBH = M_sgr*Msun
+        # GNEWT = 6.6742e-8
+        # CL = 2.99792458e10
+        # L_unit = GNEWT * MBH  / (CL * CL)
+        # PC = 3.085678e18
+        # Dsource = D_sgr*PC
+        # psize = fov_m*L_unit/Dsource * 206264806247.1*1e-6*eh.RADPERAS/pix
+        im1 = eh.image.Image(IM/np.sum(IM)*I0,psize=imarr.psize*eh.RADPERUAS,ra=ra, dec=dec, rf= rf, source=source)
         obs1 = im1.observe_same(self.obs_data, add_th_noise=True,ttype='direct',verbose=False)
         blockp()
 

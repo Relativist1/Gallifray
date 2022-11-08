@@ -64,7 +64,7 @@ class disk(object):
         
         self.X = np.linspace(-self.fov/2, self.fov/2,self.dim)
         self.Y = np.linspace(-self.fov/2, self.fov/2,self.dim)
-        self.pixel = self.X[1] - self.X[0]
+        self.psize = self.X[1] - self.X[0]
 
     def sky_map(self):
         """Generates the intensity map of the model

@@ -28,6 +28,7 @@ gallifray/likelihood/__init__.py
 gallifray/likelihood/image_obs.py
 gallifray/likelihood/likelihood.py
 gallifray/likelihood/__pycache__/__init__.cpython-38.pyc
+gallifray/likelihood/__pycache__/image_obs.cpython-38.pyc
 gallifray/likelihood/__pycache__/likelihood.cpython-38.pyc
 gallifray/mcmc/.DS_Store
 gallifray/mcmc/__init__.py

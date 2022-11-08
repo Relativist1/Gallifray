@@ -65,19 +65,22 @@ class priors():
         
 
         if model_type[0]=='geom':
-  
-            if model_type[1]=='sym_gauss':
-                pr = prior_sym_gauss(self.param)
-            if model_type[1]=='asym_gauss':
-                pr = prior_asym_gauss(self.param)
-            if model_type[1]=='disk':
-                pr = prior_disk(self.param)
-            if model_type[1]=='crescent':
-                pr = prior_crescent(self.param)
-            if model_type[1]=='xsring':
-                pr =  prior_xsring(self.param)
-            if model_type[1]=='xsringauss':
-                pr = prior_xsringauss(self.param)
+            
+            if not use_default:
+                pr = prior_gen(p0, param, p_type='uniform')
+            else:
+                if model_type[1]=='sym_gauss':
+                    pr = prior_sym_gauss(self.param)
+                if model_type[1]=='asym_gauss':
+                    pr = prior_asym_gauss(self.param)
+                if model_type[1]=='disk':
+                    pr = prior_disk(self.param)
+                if model_type[1]=='crescent':
+                    pr = prior_crescent(self.param)
+                if model_type[1]=='xsring':
+                    pr =  prior_xsring(self.param)
+                if model_type[1]=='xsringauss':
+                    pr = prior_xsringauss(self.param)
             
         elif model_type[0]=='physical':
             pr = prior_gen(self.param, model_type[1],p_type)
