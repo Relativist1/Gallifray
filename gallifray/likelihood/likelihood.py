@@ -255,7 +255,7 @@ class likelihood(object):
 
 def prep_grrt(p0, exec_c, fov_m):
 
-    get_args = exec_c
+    get_args = list(exec_c)
 
     #decompose and creates a list of all arguments
     for i in range(len(p0)):
