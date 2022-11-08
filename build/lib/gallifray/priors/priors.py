@@ -41,7 +41,7 @@ class priors():
         """
         self.param = param
     
-    def lnprior(self, model_type, p_type='uniform', use_default=True):
+    def lnprior(self, model_type, p_type='uniform', use_default=None):
         """
         Args:
             model_type (str): model (eg. ['geom', 'sym_gauss'] or ['geom', 'xsring'] or ['physical',model])
@@ -66,8 +66,11 @@ class priors():
 
         if model_type[0]=='geom':
             
-            if not use_default:
-                pr = prior_gen(p0, param, p_type='uniform')
+            if use_default==True:
+                p0 = []
+                for i in self.param.keys():
+                    p0.append(self.param[i][0])
+                pr = prior_gen(p0, self.param, p_type='uniform')
             else:
                 if model_type[1]=='sym_gauss':
                     pr = prior_sym_gauss(self.param)

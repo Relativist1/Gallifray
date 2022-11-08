@@ -255,13 +255,12 @@ class likelihood(object):
 
 def prep_grrt(p0, exec_c, fov_m):
 
-    get_args = exec_c
 
     #decompose and creates a list of all arguments
     for i in range(len(p0)):
-        get_args.append("{}".format(p0[i]))
+        exec_c.append("{}".format(p0[i]))
     
-    out_rt = subprocess.Popen(get_args, stdout=subprocess.PIPE).communicate()
+    out_rt = subprocess.Popen(exec_c, stdout=subprocess.PIPE).communicate()
     # print("done\n")
     X = []
     Y = []

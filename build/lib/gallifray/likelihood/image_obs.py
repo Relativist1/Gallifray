@@ -21,9 +21,11 @@ from builtins import object
 
 import numpy as np
 import ehtim as eh
-import sys
+import sys, os
 from gallifray.const import *
 
+def blockp():
+    sys.stdout = open(os.devnull,'w')
 
 def ipole_to_obs(X, Y, Z, obs_ref, fov_m):
     ra = obs_ref.ra
