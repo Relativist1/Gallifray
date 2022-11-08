@@ -137,7 +137,7 @@ class mcmc(object):
             with Pool() as pool:
                 samp = emcee.EnsembleSampler(self.n_walkers, ndim, ln_probability,pool=pool,
                                             args=(self.param, self.obs_data,
-                                                self.model_type, self.model_fov, self.likelihood_type,
+                                                self.model_type, self.model_fov,
                                                 self.prior_type, self.theta_G, self.fov_m, self.exec_c, self.code_type, self.use_priori_default),
                                             moves=moves, kwargs=kwargs, backend=backend,
                                             vectorize=vectorize, blobs_dtype=blobs_dtype,
@@ -147,7 +147,7 @@ class mcmc(object):
         else:
             samp = emcee.EnsembleSampler(self.n_walkers, ndim, ln_probability,
                                             args=(self.param, self.obs_data,
-                                                self.model_type, self.model_fov, self.likelihood_type,
+                                                self.model_type, self.model_fov,
                                                 self.prior_type, self.theta_G, self.fov_m, self.exec_c, self.code_type, self.use_priori_default),
                                             moves=moves, kwargs=kwargs, backend=backend,
                                             vectorize=vectorize, blobs_dtype=blobs_dtype,
@@ -173,7 +173,7 @@ def init_parameters(prior, nwalkers):
         p0.append(np.array(walker))
     return np.array(p0).T
 
-def ln_probability(p0, pr_params, obs_data, model, model_fov, prior_type, theta_G, fov_m, exec_c='./grrt', code_type=None, use_default=True , interp=None):
+def ln_probability(p0, pr_params, obs_data, model, model_fov, prior_type, theta_G, fov_m, exec_c=None, code_type=None, use_default=True , interp=None):
     """Defines the log probability
 
     Return:

@@ -142,8 +142,8 @@ class likelihood(object):
         obs1 = obs1.avg_coherent(0.,scan_avg=True)
         model_amp = obs1.unpack(['amp'],conj=True)['amp']
 
-        model = model_amp/np.max(model_amp)
-        obs = self.obs_amp/np.max(self.obs_amp)
+        model = model_amp
+        obs = self.obs_amp
         sigma = self.obs_sigma
 
         lp = -0.5*sum((model - obs)**2/sigma + np.log(sigma) + np.log(2*np.pi))
@@ -222,8 +222,8 @@ class likelihood(object):
         obs1 = obs1.avg_coherent(0.,scan_avg=True)
         model_amp = obs1.unpack(['amp'],conj=True)['amp']
 
-        model = model_amp/np.max(model_amp)
-        obs = self.obs_amp/np.max(self.obs_amp)
+        model = model_amp
+        obs = self.obs_amp
         sigma = self.obs_sigma
         z = (model * obs)/sigma**2
         lp = sum(np.log(model) - 2*np.log(sigma) -  (model + obs)**2/(2*sigma**2) + np.log(i0(z)))/(dim + len(self.param))

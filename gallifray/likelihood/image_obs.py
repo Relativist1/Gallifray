@@ -56,7 +56,7 @@ def ipole_to_obs(X, Y, Z, obs_ref, fov_m):
     
     return vis_amp1, vis_err1
 
-def grrt_to_obs(X, Y, Z, obs_ref, fov_m, code_type=None):
+def grrt_to_obs(X, Y, Z, obs_ref, fov_m):
     ra = obs_ref.ra
     dec = obs_ref.dec
     rf = obs_ref.rf

@@ -9,10 +9,10 @@ datasets/BH_accretion_sgrA.uvfits
 datasets/xsringauss_sgrA.uvfits
 example_scripts/.DS_Store
 example_scripts/example_gauss.py
-example_scripts/example_script.py
 example_scripts/example_xsring.py
 example_scripts/synthetic_data.uvfits
 example_scripts/synthetic_data_asym_gauss.uvfits
+example_scripts/test_asym_gauss.uvfits
 gallifray/.DS_Store
 gallifray/__init__.py
 gallifray/const.py
@@ -51,7 +51,6 @@ gallifray/models/__pycache__/xsring.cpython-38.pyc
 gallifray/models/__pycache__/xsringauss.cpython-38.pyc
 gallifray/priors/.DS_Store
 gallifray/priors/__init__.py
-gallifray/priors/priors copy.py
 gallifray/priors/priors.py
 gallifray/priors/__pycache__/__init__.cpython-38.pyc
 gallifray/priors/__pycache__/priors.cpython-38.pyc
