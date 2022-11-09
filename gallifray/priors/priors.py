@@ -66,11 +66,8 @@ class priors():
 
         if model_type[0]=='geom':
             
-            if use_default==True:
-                p0 = []
-                for i in self.param.keys():
-                    p0.append(self.param[i][0])
-                pr = prior_gen(p0, self.param, p_type='uniform')
+            if use_default==False:
+                pr = prior_gen(self.param,model_type[2] p_type)
             else:
                 if model_type[1]=='sym_gauss':
                     pr = prior_sym_gauss(self.param)
