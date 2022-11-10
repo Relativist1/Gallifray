@@ -108,7 +108,7 @@ class xsringauss(object):
                     Igauss = xsgauss0*np.exp(-(1/2)*((x0-(self.d-self.R_n))/self.a)**2 -0.5*((y0/self.b)**2))
                     xsringauss_arr[i-self.x_off][j-self.y_off] = xsring + Igauss
 
-        return xsringauss_arr
+        return xsringauss_arr/np.sum(xsringauss_arr)*self.I0
     
     def vis_data(self, fov, uv='default',A=-0.5,interp=None,points=512):
         """"Generate complex visibilites

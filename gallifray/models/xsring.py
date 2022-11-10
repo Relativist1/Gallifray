@@ -95,7 +95,7 @@ class xsring(object):
                     xs0 = (2*self.I0/np.pi)/(self.R_p**2-self.R_n**2*(1+d/self.R_p) - (1-self.f)*(d*self.R_n**2/self.R_p))
                     xsring = xs0*((1/2)*self.f*(1.0-x0/self.R_p) + (1/2)*(1.0+x0/self.R_p))
                     xsring_arr[i-self.x_off][j-self.y_off] = xsring
-        return xsring_arr
+        return xsring_arr/np.sum(xsring_arr)*self.I0
     
     def vis_data(self, fov, uv='default',interp=None,points=512):
         """Generate complex visibilites

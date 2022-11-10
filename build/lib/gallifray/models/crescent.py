@@ -95,7 +95,7 @@ class crescent(object):
                 R2 = ni**2 + nj**2
                 if R1 > self.R_n**2 and R2 < self.R_p**2:
                     cres_arr[i-self.x_off][j-self.y_off] = 1.0
-        crescarr = cres_arr * self.I0/np.sum(cres_arr) #Normalise
+        crescarr = cres_arr/np.sum(cres_arr)* self.I0 #Normalise
         return crescarr
     
     def vis_data(self, fov, uv='default',interp=None,points=512):

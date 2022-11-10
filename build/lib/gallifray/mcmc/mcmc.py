@@ -103,12 +103,9 @@ class mcmc(object):
             
         """
         #edit 4th June, 2022
-        if type(self.param)==dict:
-            init1 = []
-            for i in self.param.keys():
-                init1.append(self.param[i][0])
-        else:
-            init1 = self.param
+        init1 = []
+        for i in self.param.keys():
+            init1.append(self.param[i][0])
         initial = np.asarray(init1)
         ndim = len(initial)
         #edit 9th April, 2022

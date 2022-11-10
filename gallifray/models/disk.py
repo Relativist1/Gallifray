@@ -78,7 +78,7 @@ class disk(object):
                 R1 = nj**2 + ni**2
                 if R1 < self.R**2:
                     disk[i-self.x_off][j-self.y_off] = self.I0
-        return disk
+        return disk/np.max(disk)*self.I0
     
     def vis_data(self, fov, uv='default',A=-0.5,interp=None,points=512):
         """"Generate complex visibilites

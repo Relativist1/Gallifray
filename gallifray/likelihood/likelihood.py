@@ -168,7 +168,7 @@ class likelihood(object):
         if self.model[1]=='asym_gauss':
             I0, A, sigma, phi = self.param
             dim = len(self.obs_amp)
-            imarr = asym_gauss(I0, A, sigma, phi, fov, dim=64)
+            imarr = asym_gauss(I0, sigma, A, phi, fov, dim=64)
             IM = imarr.sky_map()
             
         if self.model[1]=='disk':

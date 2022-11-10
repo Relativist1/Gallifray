@@ -67,7 +67,7 @@ class priors():
         if model_type[0]=='geom':
             
             if use_default==False:
-                pr = prior_gen(self.param,model_type[2] p_type)
+                pr = prior_gen(self.param,model_type[2], p_type)
             else:
                 if model_type[1]=='sym_gauss':
                     pr = prior_sym_gauss(self.param)

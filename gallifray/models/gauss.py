@@ -77,7 +77,8 @@ class sym_gauss(object):
         for j, nj in enumerate(self.Y):
             for i, ni in enumerate(self.Y):
                 gauss_arr[i-self.x_off][j-self.y_off] = np.exp(-(ni**2 + nj**2)/(2.*self.sigma**2))
-        Gauss = gauss_arr*self.I0 #Normalise
+
+        Gauss = gauss_arr/np.sum(gaus_arr)*self.I0 #Normalise
         return Gauss
     
     def vis_data(self, fov, uv='default',A=-0.5,interp=None,points=512):
@@ -208,7 +209,7 @@ class asym_gauss(object):
         for j, nj in enumerate(self.Y):
             for i, ni in enumerate(self.Y):
                 gauss_arr[i-self.x_off][j-self.y_off] = np.exp(-(nj*x0 + ni*y0)**2/(2*self.s_maj**2)-(ni*x0 - nj*y0)**2/(2.*self.s_min**2))
-        Gauss = gauss_arr*self.I0 #Normalise
+        Gauss = gauss_arr/np.sum(gauss_arr)*self.I0 #Normalise
         return Gauss
     
     def vis_data(self, fov, uv='default', A=-0.5,interp=None,points=512):
