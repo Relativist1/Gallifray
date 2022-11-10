@@ -55,7 +55,7 @@ obs_m.add_scans()
 obs_m = obs_m.avg_coherent(0.0,scan_avg=True)
 
 #---------------------------Intialising the MCMC sampler---------------------------#
-filename = "chain_test_asym_gauss5.h5"
+filename = "chain_test_asym_gauss.h5"
 backend = emcee.backends.HDFBackend(filename)
 prepare_mcmc = gr.mcmc(param,fov_m=40, model_type=model_type,obs_data=obs_m, model_fov=fov,
                       n_walkers=n_walkers, n_samples=n_samples,
