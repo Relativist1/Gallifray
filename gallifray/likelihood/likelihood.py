@@ -83,57 +83,44 @@ class likelihood(object):
         if self.model[1]=='sym_gauss':
             I0, sigma = self.param
             dim = len(self.obs_amp)
-            imarr = sym_gauss(I0, sigma, fov, dim=64)
+            imarr = sym_gauss(I0=I0, sigma=sigma, fov=fov, dim=64)
             IM = imarr.sky_map()
             
         if self.model[1]=='asym_gauss':
-            I0, A, sigma, phi = self.param
+            I0, sigma, A, phi = self.param
             dim = len(self.obs_amp)
-            imarr = asym_gauss(I0, sigma, A, phi, fov, dim=64)
+            imarr = asym_gauss(I0=I0, sigma=sigma, A=A, phi=phi, fov=fov, dim=64)
             IM = imarr.sky_map()
             
         if self.model[1]=='disk':
             I0, R = self.param
             dim = len(self.obs_amp)
-            imarr = disk(I0, R, fov, dim=64)
+            imarr = disk(I0=I0, R=R, fov=fov, dim=64)
             IM = imarr.sky_map()
             
         if self.model[1]=='crescent':
             I0, R, psi, tau, phi = self.param
             dim = len(self.obs_amp)
-            imarr = crescent(I0, R, psi, tau, phi,fov, dim=64)
+            imarr = crescent(I0=I0, R=R, psi=psi, tau=tau, phi=phi,fov=fov, dim=64)
             IM = imarr.sky_map()
             
         if self.model[1]=='xsring':
             I0, R_p, R_n, ecn, f, phi = self.param
             dim = len(self.obs_amp)
-            imarr = xsring(I0, R_p, R_n, ecn, f, phi,fov, dim=64)
+            imarr = xsring(I0=I0, R_p=R_p, R_n=R_n, ecn=ecn, f=f, phi=phi,fov=fov, dim=64)
             IM = imarr.sky_map()
             
         if self.model[1]=='xsringauss':
             I0, R_p, R_n, ecn, f, gax, aq, gq, phi = self.param
             dim = len(self.obs_amp)
-            imarr = xsringauss(I0, R_p, R_n, ecn, f, gax, aq, gq, phi,fov, dim=64)
+            imarr = xsringauss(I0=I0, R_p=R_p, R_n=R_n, ecn=ecn, f=f, gax=gax, aq=aq, gq=gq, phi=phi,fov=fov, dim=64)
             IM = imarr.sky_map()
 
         ra = self.obs_data.ra
         dec = self.obs_data.dec
         rf = self.obs_data.rf
         source = self.obs_data.source
-        # fov_m = fov
-        # DX = fov
-        # DY = DX
-        # pix = len(self.obs_amp)
-        # NX= pix
-        # NY = NX
-        # Msun = 1.989e33
-        # MBH = M_sgr*Msun
-        # GNEWT = 6.6742e-8
-        # CL = 2.99792458e10
-        # L_unit = GNEWT * MBH  / (CL * CL)
-        # PC = 3.085678e18
-        # Dsource = D_sgr*PC
-        # psize = fov_m*L_unit/Dsource * 206264806247.1*1e-6*eh.RADPERAS/pix
+
         im1 = eh.image.Image(IM/np.sum(IM)*I0,psize=imarr.psize*eh.RADPERUAS,ra=ra, dec=dec, rf= rf, source=source)
         obs1 = im1.observe_same(self.obs_data, add_th_noise=True,ttype='direct',verbose=False)
         blockp()
@@ -162,37 +149,37 @@ class likelihood(object):
         if self.model[1]=='sym_gauss':
             I0, sigma = self.param
             dim = len(self.obs_amp)
-            imarr = sym_gauss(I0, sigma, fov, dim=64)
+            imarr = sym_gauss(I0=I0, sigma=sigma, fov=fov, dim=64)
             IM = imarr.sky_map()
             
         if self.model[1]=='asym_gauss':
-            I0, A, sigma, phi = self.param
+            I0, sigma, A, phi = self.param
             dim = len(self.obs_amp)
-            imarr = asym_gauss(I0, sigma, A, phi, fov, dim=64)
+            imarr = asym_gauss(I0=I0, sigma=sigma, A=A, phi=phi, fov=fov, dim=64)
             IM = imarr.sky_map()
             
         if self.model[1]=='disk':
             I0, R = self.param
             dim = len(self.obs_amp)
-            imarr = disk(I0, R, fov, dim=64)
+            imarr = disk(I0=I0, R=R, fov=fov, dim=64)
             IM = imarr.sky_map()
             
         if self.model[1]=='crescent':
             I0, R, psi, tau, phi = self.param
             dim = len(self.obs_amp)
-            imarr = crescent(I0, R, psi, tau, phi,fov, dim=64)
+            imarr = crescent(I0=I0, R=R, psi=psi, tau=tau, phi=phi,fov=fov, dim=64)
             IM = imarr.sky_map()
             
         if self.model[1]=='xsring':
             I0, R_p, R_n, ecn, f, phi = self.param
             dim = len(self.obs_amp)
-            imarr = xsring(I0, R_p, R_n, ecn, f, phi,fov, dim=64)
+            imarr = xsring(I0=I0, R_p=R_p, R_n=R_n, ecn=ecn, f=f, phi=phi,fov=fov, dim=64)
             IM = imarr.sky_map()
             
         if self.model[1]=='xsringauss':
             I0, R_p, R_n, ecn, f, gax, aq, gq, phi = self.param
             dim = len(self.obs_amp)
-            imarr = xsringauss(I0, R_p, R_n, ecn, f, gax, aq, gq, phi,fov, dim=64)
+            imarr = xsringauss(I0=I0, R_p=R_p, R_n=R_n, ecn=ecn, f=f, gax=gax, aq=aq, gq=gq, phi=phi,fov=fov, dim=64)
             IM = imarr.sky_map()
 
 
@@ -200,20 +187,6 @@ class likelihood(object):
         dec = self.obs_data.dec
         rf = self.obs_data.rf
         source = self.obs_data.source
-        # fov_m = fov
-        # DX = fov
-        # DY = DX
-        # pix = len(self.obs_amp)
-        # NX= pix
-        # NY = NX
-        # Msun = 1.989e33
-        # MBH = M_sgr*Msun
-        # GNEWT = 6.6742e-8
-        # CL = 2.99792458e10
-        # L_unit = GNEWT * MBH  / (CL * CL)
-        # PC = 3.085678e18
-        # Dsource = D_sgr*PC
-        # psize = fov_m*L_unit/Dsource * 206264806247.1*1e-6*eh.RADPERAS/pix
         im1 = eh.image.Image(IM/np.sum(IM)*I0,psize=imarr.psize*eh.RADPERUAS,ra=ra, dec=dec, rf= rf, source=source)
         obs1 = im1.observe_same(self.obs_data, add_th_noise=True,ttype='direct',verbose=False)
         blockp()
@@ -244,8 +217,8 @@ class likelihood(object):
         else:
             model_amp, err = grrt_to_obs(X, Y, Z, self.obs_data, fov_m)
             
-        model = model_amp/np.max(model_amp)
-        obs = self.obs_amp/np.max(self.obs_amp)
+        model = model_amp
+        obs = self.obs_amp
         sigma = self.obs_sigma
         
         lp = -0.5*sum((model - obs)**2/sigma + np.log(sigma) + np.log(2*np.pi))

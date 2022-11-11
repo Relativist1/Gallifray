@@ -39,8 +39,8 @@ fov = sigma_true*2 + 120
 
 
 param = {'I0': [I0_true, 0, 10, 0.2],
-         'A' : [A_true, 0, 1, 0.2],
          'sigma': [sigma_true, 0, 100, 0.3],
+         'A' : [A_true, 0, 1, 0.2],
          'phi': [phi_true, 0, np.pi, 0.2]
 }
 

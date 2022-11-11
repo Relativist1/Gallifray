@@ -44,7 +44,7 @@ class priors():
     def lnprior(self, model_type, p_type='uniform', use_default=None):
         """
         Args:
-            model_type (str): model (eg. ['geom', 'sym_gauss'] or ['geom', 'xsring'] or ['physical',model])
+            model_type (str): model (eg. ['geom', 'sym_gauss', model] or ['geom', 'xsring', model] or ['physical',model])
             p_type: type of prior
                 
                 'uniform' : Set uniform priors
