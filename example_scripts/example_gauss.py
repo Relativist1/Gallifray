@@ -32,10 +32,10 @@ n_samples = 500          # No of iterations
 
 #------------------------Inital guess for the parameters--------------------------#
 I0_true = 2 
-sigma_true = 20
+sigma_true = 40
 A_true = 0.5
 phi_true = np.pi/2
-fov = sigma_true*2 + 120
+fov = sigma_true*2 + 400
 
 
 param = {'I0': [I0_true, 0, 10, 0.2],
@@ -55,44 +55,10 @@ obs_m.add_scans()
 obs_m = obs_m.avg_coherent(0.0,scan_avg=True)
 
 #---------------------------Intialising the MCMC sampler---------------------------#
-filename = "chain_test_asym_gauss.h5"
+filename = "chain_test_asym_gauss_sim1.h5"
 backend = emcee.backends.HDFBackend(filename)
 prepare_mcmc = gr.mcmc(param,fov_m=40, model_type=model_type,obs_data=obs_m, model_fov=fov,
                       n_walkers=n_walkers, n_samples=n_samples,
                       prior_type=prior_type, likelihood_type=likelihood, use_priori_default=False)
           
 sampler = prepare_mcmc.run_sampler(init_position='random',backend=backend)
-
-# ndim = len(initial)
-# # labels = [r"$I_0$", r"$R_p (\mu as)$", "$R_n (\mu as)$", r"${\epsilon}$", r"f", r"${\phi}$"]
-# labels = [r"$I_0$", r"$\A (\mu as)$"]
-# post = sampler.get_chain(flat=True)
-
-# #-----------Plot the Triangular Posterior-Distribution Plot (Takes a while)--------#
-
-# # gr.Tardis(post, labels=labels, truths=initial,
-# #          savefig=save_fig_dist,
-# #          diag_shade_color='Red')
-# fig, axes = plt.subplots(ndim, figsize=(10, 7), sharex=True)
-
-# samples = sampler.get_chain()
-
-# for i in range(ndim):
-#     ax = axes[i]
-#     ax.plot(samples[:, :, i], "k", alpha=0.3)
-#     ax.set_xlim(0, len(samples))
-#     ax.set_ylabel(labels[i])
-#     ax.yaxis.set_label_coords(-0.1, 0.5)
-
-# axes[-1].set_xlabel("step number");
-
-# plt.show()
-
-# # tau = sampler.get_autocorr_time()
-# # print(tau)
-
-# final = sampler.get_chain(flat=True)
-# #final = sampler.get_chain(discard=100, thin=20, flat=True)
-
-# fig = corner.corner(final, labels=labels, truths=initial,show_titles=True);
-# plt.show()
