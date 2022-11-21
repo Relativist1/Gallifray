@@ -61,4 +61,4 @@ prepare_mcmc = gr.mcmc(param,fov_m=40, model_type=model_type,obs_data=obs_m, mod
                       n_walkers=n_walkers, n_samples=n_samples,
                       prior_type=prior_type, likelihood_type=likelihood, use_priori_default=False)
           
-sampler = prepare_mcmc.run_sampler(init_position='random',backend=backend)
+sampler = prepare_mcmc.run_sampler(init_position='guess',backend=backend)
