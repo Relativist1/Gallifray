@@ -25,23 +25,24 @@ from gallifray.models import xsring
 import ehtim as eh
 import corner
 import emcee
-path = 'synthetic_data.uvfits' # path of the dataset
+path = 'example_xsring.uvfits' # path of the dataset
 save_fig_dist = 'cr_grtest1.png'            # filename for saving distribution plot
 
 
-n_walkers = 20           # No of walkers
+n_walkers = 25           # No of walkers
 n_samples = 1000          # No of iterations
 
 
 #------------------------Inital guess for the parameters--------------------------#
 
-I0_true = 2   # Refer to the paper for detailed explaination of model and parameters.
+I0_true = 2.5   # Refer to the paper for detailed explaination of model and parameters.
 Rp_true = 40
 Rn_true = 35
 ecn_true = 0.3
 f_true = 0.3
 phi_true = np.pi/2
-fov = (Rp_true*2) + 20
+fov = 200
+dim=64
 
 
 
@@ -51,7 +52,7 @@ param = {'I0': [I0_true, 0, 10, 0.2],
          'Rn': [Rn_true, 0, 100, 0.3],
          'ecn': [ecn_true, -1, 1, 0.1],
          'f' : [f_true, 0, 1, 0.3],
-         'phi':[phi_true, -np.pi, np.pi, 0.3]
+         'phi':[phi_true, 0, np.pi, 0.3]
 }
 
 model_type =['geom','xsring', param]   # Define the model type
@@ -65,15 +66,18 @@ prior_type = 'uniform'          # Define the type of prior
 obs_m = eh.obsdata.load_uvfits(path)
 obs_m.add_scans()
 obs_m = obs_m.avg_coherent(0.0,scan_avg=True)
+filename = "chain_test_xsring.h5"
 
 #---------------------------Intialising the MCMC sampler---------------------------#
-filename = "chain_test_xsring.h5"
+
 backend = emcee.backends.HDFBackend(filename)
 prepare_mcmc = gr.mcmc(param,fov_m=40, model_type=model_type,obs_data=obs_m, model_fov=fov,
                       n_walkers=n_walkers, n_samples=n_samples,
-                      prior_type=prior_type, likelihood_type=likelihood, use_priori_default=True)
+                      prior_type=prior_type, likelihood_type=likelihood, use_priori_default=False)
           
 sampler = prepare_mcmc.run_sampler(init_position='guess',backend=backend)
+
+
 # ndim = len(initial)
 # # labels = [r"$I_0$", r"$R_p (\mu as)$", "$R_n (\mu as)$", r"${\epsilon}$", r"f", r"${\phi}$"]
 # labels = [r"$I_0$", r"$\A (\mu as)$"]
