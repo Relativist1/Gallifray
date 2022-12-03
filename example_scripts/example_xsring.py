@@ -35,8 +35,8 @@ n_samples = 1000          # No of iterations
 
 #------------------------Inital guess for the parameters--------------------------#
 
-I0_true = 2.5   # Refer to the paper for detailed explaination of model and parameters.
-Rp_true = 40
+I0_true = 2.2   # Refer to the paper for detailed explaination of model and parameters.
+Rp_true = 42
 Rn_true = 35
 ecn_true = 0.3
 f_true = 0.3
@@ -73,7 +73,7 @@ filename = "chain_test_xsring.h5"
 backend = emcee.backends.HDFBackend(filename)
 prepare_mcmc = gr.mcmc(param,fov_m=40, model_type=model_type,obs_data=obs_m, model_fov=fov,
                       n_walkers=n_walkers, n_samples=n_samples,
-                      prior_type=prior_type, likelihood_type=likelihood, use_priori_default=False)
+                      prior_type=prior_type, likelihood_type=likelihood, use_priori_default=False,blob_width=0.1)
           
 sampler = prepare_mcmc.run_sampler(init_position='guess',backend=backend)
 
