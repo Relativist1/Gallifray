@@ -99,6 +99,9 @@ gr.Tardis(samples, truths=truths, labels =labels,
 - Space-VLBI simulations
 - Addition of more models
 
+## Cite
+If you use Gallifray in your publication, please cite _`Saurabh. et. al 2022 <https://ui.adsabs.harvard.edu/abs/2022arXiv221206827S/abstract>`_.
+       
 ## Contact
 If you have any issues or want any help, feel free to drop an email at sbhkmr1999@gmail.com
 
